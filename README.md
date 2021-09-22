@@ -59,6 +59,8 @@ cl 是 component library
 - css in js ❌
 - 预处理器 Sass  ✔
   - vscode有插件(Live Sass Compiler)可以直接编译 
+  - 使用node-sass `yarn add node-sass@4.14.1 ` ，因为新版本的node-sass 不兼容了
+- normalize.css ✔ 
 
 #### 样式文件结构
 
@@ -86,11 +88,16 @@ cl 是 component library
   - 字体大小
     - 用rem控制
     - 要有不同变量以供选择
+    - 标题等另外设置，基于base控制
   - 字重（相对于字体高度的笔画粗细）
     - 同样多种变量以供选择
-- 表单
-- 按钮
-- 边框和阴影
+  - 行高
+    - 同上
+- 常用样式
+  - 表单
+  - 按钮
+  - 边框和阴影
+  - 背景
 - 可配置开关
 
 ## 各个组件

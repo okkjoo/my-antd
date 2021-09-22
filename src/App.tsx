@@ -1,12 +1,15 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
 
 function App() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
+				<h1>Hello</h1>
+				<h2>Hello</h2>
+				<h3>Hello</h3>
+				<h4>Hello</h4>
+				<hr />
+				<code>const a = 'Hello'</code>
 				<p>
 					Edit <code>src/App.tsx</code> and save to reload.
 				</p>
