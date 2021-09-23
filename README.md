@@ -100,5 +100,24 @@ cl 是 component library
   - 背景
 - 可配置开关
 
+#### 工具
+
+classnames 用于方便地控制 className
+
 ## 各个组件
+
+### Button
+
+#### 需求分析
+
+- 不同的大小 size
+  - 控制 padding
+- 不同的类型 type
+  - Primary
+  - Default
+  - Danger
+  - Link Button
+- 不同的状态
+  - disabled
+    - 还要设置鼠标 cursor
 
