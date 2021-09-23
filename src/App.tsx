@@ -34,6 +34,7 @@ function App() {
         </Button>
         <Button
           btnType={ButtonType.Link}
+          target='_blank'
           href='http://www.baidu.com'
         >
           baidu link

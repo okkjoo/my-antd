@@ -21,18 +21,25 @@ interface BaseButtonProps {
   href?: string
 }
 
-const Button: React.FC<BaseButtonProps> = (
-  props,
-) => {
+type NativeButtonProps = BaseButtonProps &
+  React.ButtonHTMLAttributes<HTMLElement>
+type AnchorButtonProps = BaseButtonProps &
+  React.AnchorHTMLAttributes<HTMLElement>
+export type ButtonProps = Partial<
+  NativeButtonProps & AnchorButtonProps
+>
+const Button: React.FC<ButtonProps> = (props) => {
   const {
+    className,
     btnType,
     disabled,
     size,
     children,
     href,
+    ...restProps
   } = props
   //btn,btn-lg,btn-primary
-  const classes = classNames('btn', {
+  const classes = classNames('btn', className, {
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
     [`disabled`]:
@@ -41,7 +48,11 @@ const Button: React.FC<BaseButtonProps> = (
 
   if (btnType === ButtonType.Link && href) {
     return (
-      <a className={classes} href={href}>
+      <a
+        className={classes}
+        href={href}
+        {...restProps}
+      >
         {children}
       </a>
     )
@@ -50,6 +61,7 @@ const Button: React.FC<BaseButtonProps> = (
       <button
         className={classes}
         disabled={disabled}
+        {...restProps}
       >
         {children}
       </button>
