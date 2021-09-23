@@ -1,4 +1,3 @@
-import { BigIntStats } from 'fs'
 import React from 'react'
 import Button, {
   ButtonType,
@@ -28,6 +27,12 @@ function App() {
           Primary Large btn
         </Button>
         <Button
+          btnType={ButtonType.Danger}
+          size={ButtonSize.Small}
+        >
+          Danger small btn
+        </Button>
+        <Button
           btnType={ButtonType.Link}
           href='http://www.baidu.com'
         >
@@ -38,7 +43,7 @@ function App() {
           href='http://www.baidu.com'
           disabled
         >
-          baidu link
+          disabled baidu link
         </Button>
       </header>
     </div>
