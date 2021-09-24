@@ -121,3 +121,64 @@ classnames 用于方便地控制 className
   - disabled
     - 还要设置鼠标 cursor
 
+### Menu
+
+#### 需求分析
+
+- 基本样式
+  - 展示方法
+    - 横向
+    - 纵向
+  - 功能
+    - 下拉
+    - 展开
+  - 状态
+    - 高亮
+    - disabled
+
+## 测试
+
+### 重要性
+
+- 高质量代码
+- 更早发现成本
+- 方便重构和升级
+- 开发更为敏捷
+
+### 测试框架 
+
+#### Jest
+
+ [Jest中文网](https://www.jestjs.cn/)
+
+这个也是 cra 的默认内置测试框架，所以直接	`npx jest xxx.test.js`即可运行，命令后面加一个`--watch`就表示一直监视
+
+---
+
+#### React Test Library
+
+[raect官方推荐](https://zh-hans.reactjs.org/docs/test-utils.html#gatsby-focus-wrapper)
+
+也是作为react默认自带的测试工具
+
+`package.json`
+
+![image-20210924105223944](https://gitee.com/okkjoo/image-bed/raw/master/imgs/image-20210924105223944.png)
+
+ `yarn run test`即可运行所有 `.test.tsx`结尾的文件
+
+##### jest-dom
+
+在原来的断言库中新增了许多方法——针对DOM，也是内置好的，见上图。
+
+该扩展有关入口——``setupTest.ts`，cra 模板里也有的 ，在src文件夹下。
+
+
+
+### 书写测试
+
+- case分类
+- mock 模拟用户动作
+  - jest.fn()
+  - fireEvent
+  - toHaveBeenCalled()
