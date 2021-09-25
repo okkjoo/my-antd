@@ -3,11 +3,21 @@ import Button, {
   ButtonType,
   ButtonSize,
 } from './components/Button/button'
+import Menu from './components/Menu/menu'
+import MenuItem from './components/Menu/menuItem'
 
 function App() {
   return (
     <div className='App'>
       <header className='App-header'>
+        <Menu defaultIndex={0} onSelect={(index) => alert(index)}>
+          <MenuItem index={0} disabled>
+            cool link 1
+          </MenuItem>
+          <MenuItem index={1}>cool link 2</MenuItem>
+          <MenuItem index={2}>cool link 3</MenuItem>
+          <MenuItem index={3}>cool link 4</MenuItem>
+        </Menu>
         {/* <h1>Hello</h1>
         <h2>Hello</h2>
         <h3>Hello</h3>
@@ -20,16 +30,10 @@ function App() {
         </p> */}
         <Button>Default btn</Button>
         <Button disabled>Disabled btn</Button>
-        <Button
-          btnType={ButtonType.Primary}
-          size={ButtonSize.Large}
-        >
+        <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>
           Primary Large btn
         </Button>
-        <Button
-          btnType={ButtonType.Danger}
-          size={ButtonSize.Small}
-        >
+        <Button btnType={ButtonType.Danger} size={ButtonSize.Small}>
           Danger small btn
         </Button>
         <Button
