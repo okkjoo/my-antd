@@ -186,4 +186,11 @@ classnames 用于方便地控制 className
 - 
   - data-testid
   - getByTestId()
-- cleanup
+- cleanup 
+
+## 查漏补缺
+
+### React
+
+- React.children.map
+- React.cloneElement()
