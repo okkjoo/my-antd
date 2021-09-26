@@ -182,3 +182,8 @@ classnames 用于方便地控制 className
   - jest.fn()
   - fireEvent
   - toHaveBeenCalled()
+- beforeEach()钩子
+- 
+  - data-testid
+  - getByTestId()
+- cleanup
