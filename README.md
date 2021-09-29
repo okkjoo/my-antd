@@ -183,10 +183,15 @@ classnames 用于方便地控制 className
   - fireEvent
   - toHaveBeenCalled()
 - beforeEach()钩子
-- 
+-  
   - data-testid
   - getByTestId()
 - cleanup 
+- toBeVisible
+- 异步
+  - async
+  - await
+    - wait
 
 ## 查漏补缺
 
