@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  cleanup,
   fireEvent,
   render,
   RenderResult,
@@ -19,6 +18,7 @@ const testProps: MenuProps = {
 const testVerProps: MenuProps = {
   defaultIndex: '0',
   mode: 'vertical',
+  defaultOpenSubMenus: ['4'],
 }
 const generateMenu = (props: MenuProps) => {
   return (
@@ -28,6 +28,9 @@ const generateMenu = (props: MenuProps) => {
       <MenuItem>third</MenuItem>
       <SubMenu title='dropdown'>
         <MenuItem>drop1</MenuItem>
+      </SubMenu>
+      <SubMenu title='opened'>
+        <MenuItem>opened1</MenuItem>
       </SubMenu>
     </Menu>
   )
@@ -49,11 +52,12 @@ const createStyleFile = () => {
 }
 
 let wrapper: RenderResult,
+  wrapper2: RenderResult,
   menuElement: HTMLElement,
   activeElement: HTMLElement,
   disabeldElement: HTMLElement
 
-describe('Menu and MenuItem component', () => {
+describe('Menu and MenuItem component in default(horizontal) mode', () => {
   beforeEach(() => {
     wrapper = render(generateMenu(testProps))
     wrapper.container.append(createStyleFile())
@@ -68,7 +72,7 @@ describe('Menu and MenuItem component', () => {
     expect(menuElement).toHaveClass('zhou-menu zhou-test')
     expect(
       menuElement.querySelectorAll(':scope > li').length,
-    ).toEqual(4)
+    ).toEqual(5)
     expect(activeElement).toHaveClass('menu-item is-active')
     expect(disabeldElement).toHaveClass('menu-item is-disabled')
   })
@@ -85,13 +89,6 @@ describe('Menu and MenuItem component', () => {
     expect(testProps.onSelect).not.toHaveBeenCalledWith('1')
   })
 
-  it('should render vertical mode when mode is set to vertical', () => {
-    cleanup()
-    const wrapper = render(generateMenu(testVerProps))
-    const menuElement = wrapper.getByTestId('test-menu')
-    expect(menuElement).toHaveClass('menu-vertical')
-  })
-
   it('should show dropdown items when hover on SubMenu', async () => {
     expect(wrapper.queryByText('drop1')).not.toBeVisible()
     const dropdownElement = wrapper.getByText('dropdown')
@@ -106,5 +103,27 @@ describe('Menu and MenuItem component', () => {
     await wait(() => {
       expect(wrapper.queryByText('drop1')).not.toBeVisible()
     })
+  })
+})
+describe('test Menu and MenuItem component when mode is set to vertical', () => {
+  beforeEach(() => {
+    wrapper2 = render(generateMenu(testVerProps))
+    wrapper2.container.append(createStyleFile())
+  })
+
+  it('should render vertical mode when mode is set to vertical', () => {
+    const menuElement = wrapper2.getByTestId('test-menu')
+    expect(menuElement).toHaveClass('menu-vertical')
+  })
+
+  it('should show dropdowm items when click on subMenu for vertical mode', () => {
+    const dropDownItem = wrapper2.queryByText('drop1')
+    expect(dropDownItem).not.toBeVisible()
+    fireEvent.click(wrapper2.getByText('dropdown'))
+    expect(dropDownItem).toBeVisible()
+  })
+
+  it('should show subMenu dropdown when defaultOpenSubMenus contains SubMenu index', () => {
+    expect(wrapper2.queryByText('opened1')).toBeVisible()
   })
 })
