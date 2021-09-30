@@ -127,14 +127,45 @@ classnames 用于方便地控制 className
 
 - 基本样式
   - 展示方法
-    - 横向
+    - 横向(默认)
+      - Horizontal
     - 纵向
+      - vertical
   - 功能
     - 下拉
     - 展开
+      - SubMenu
   - 状态
-    - 高亮
+    - 高亮 is-active
     - disabled
+
+### Icon
+
+#### icon发展
+
+- 雪碧图 CSS sprite
+- Font Icon
+- SVG
+
+#### SVG
+
+##### 优势
+
+- 完全可控
+- SVG 即取即用，Font Icon要下载相关字体文件
+- Font Icon 有些奇怪的bug——没加载好文件的情况
+
+##### react-fontawesome
+
+使用第三方库、二次封装
+
+[github仓库](https://github.com/FortAwesome/react-fontawesome)
+
+```
+yarn add @fortawesome/fontawesome-svg-core
+yarn add @fortawesome/free-solid-svg-icons
+yarn add @fortawesome/react-fontawesome
+```
 
 ## 测试
 
