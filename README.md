@@ -159,6 +159,16 @@ classnames 用于方便地控制 className
 
 使用第三方库、二次封装
 
+#### 二次封装
+
+内部使用返回`fontAwesomeIcon`标签，外面套一层自己组件库相关的属性进行控制，如：
+
+- 主题色
+
+  - 用到SCSS的循环赋值方法——`each` 、`map` 
+
+  
+
 [github仓库](https://github.com/FortAwesome/react-fontawesome)
 
 ```
@@ -226,7 +236,42 @@ yarn add @fortawesome/react-fontawesome
 
 ## 查漏补缺
 
+### SCSS
+
+- each map
+
+  ```scss
+  @each $key, $val in $theme-colors {
+    .icon-#{$key} {
+      color: $val;
+    }
+  }
+  ```
+
+  
+
 ### React
 
 - React.children.map
 - React.cloneElement()
+
+### git commit规范
+
+#### type
+
+指明 git commit 的类别，应该使用以下类型:
+
+- 『feat』: 新增功能
+- 『fix』: 修复 bug
+
+- 『docs』: 仅仅修改了文档，比如 README, CHANGELOG 等等
+- 『test』: 增加/修改测试用例，包括单元测试、集成测试等
+
+- 『style』: 修改了空行、缩进格式、引用包排序等等（不改变代码逻辑）
+- 『perf』: 优化相关内容，比如提升性能、体验、算法等
+
+- 『refactor』: 代码重构，「没有新功能或者 bug 修复」
+- 『chore』: 改变构建流程、或者增加依赖库、工具等
+
+- 『revert』: 回滚到上一个版本
+- 『merge』: 代码合并

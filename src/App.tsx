@@ -6,14 +6,15 @@ import Button, {
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
 import SubMenu from './components/Menu/subMenu'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import Icon from './components/Icon/icon'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
 function App() {
   return (
     <div className='App'>
       <header className='App-header'>
-        <FontAwesomeIcon icon={faCoffee} size='8x' />
+        <Icon icon='arrow-down' theme='primary' size='10x' />
         <Menu
           defaultIndex='0'
           onSelect={(index) => alert(index)}
