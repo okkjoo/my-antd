@@ -1851,6 +1851,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-transition-group@^4.4.3":
+  version "4.4.3"
+  resolved "https://registry.nlark.com/@types/react-transition-group/download/@types/react-transition-group-4.4.3.tgz#b0994da0a7023d67dbb4a8910a62112bc00d5688"
+  integrity sha1-sJlNoKcCPWfbtKiRCmIRK8ANVog=
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^17.0.0":
   version "17.0.22"
   resolved "https://registry.nlark.com/@types/react/download/@types/react-17.0.22.tgz#c80d1d0e87fe953bae3ab273bef451dea1a6291b"
