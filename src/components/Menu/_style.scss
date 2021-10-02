@@ -34,7 +34,8 @@
       align-items: center;
     }
     .arrow-icon {
-      transition: transfrom 0.25s ease-in-out;
+      transform: rotate(0deg);
+      transition: transform 0.25s ease-in-out;
       margin-left: 3px;
     }
     &:hover {
@@ -58,6 +59,7 @@
     list-style: none;
     padding-left: 0;
     white-space: nowrap;
+    transition: $menu-transition;
     .menu-item {
       padding: $menu-item-padding-y $menu-item-padding-x;
       cursor: pointer;

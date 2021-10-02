@@ -167,6 +167,10 @@ classnames 用于方便地控制 className
 
   - 用到SCSS的循环赋值方法——`each` 、`map` 
 
+- 动画效果
+
+  - 
+
   
 
 [github仓库](https://github.com/FortAwesome/react-fontawesome)
