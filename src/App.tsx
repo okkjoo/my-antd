@@ -16,7 +16,7 @@ function App() {
         <Menu
           defaultIndex='0'
           onSelect={(index) => alert(index)}
-          mode='vertical'
+          // mode='vertical'
           defaultOpenSubMenus={['2']}
         >
           <MenuItem>cool link 1</MenuItem>
