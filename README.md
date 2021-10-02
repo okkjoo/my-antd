@@ -159,6 +159,14 @@ classnames 用于方便地控制 className
 
 使用第三方库、二次封装
 
+[github仓库](https://github.com/FortAwesome/react-fontawesome)
+
+```
+yarn add @fortawesome/fontawesome-svg-core
+yarn add @fortawesome/free-solid-svg-icons
+yarn add @fortawesome/react-fontawesome
+```
+
 #### 二次封装
 
 内部使用返回`fontAwesomeIcon`标签，外面套一层自己组件库相关的属性进行控制，如：
@@ -169,17 +177,22 @@ classnames 用于方便地控制 className
 
 - 动画效果
 
-  - 
+  - 原生CSS （首选方案）
 
-  
+    - transform
+    - transition
 
-[github仓库](https://github.com/FortAwesome/react-fontawesome)
+  - 但react中有用不了原生动画的情况
 
-```
-yarn add @fortawesome/fontawesome-svg-core
-yarn add @fortawesome/free-solid-svg-icons
-yarn add @fortawesome/react-fontawesome
-```
+    - display：none 后再出现，会使得 出现效果与动画末尾时机重叠，过渡动画自然就失去了
+
+    - 所以就需要有**延时**的解决方案——有一个针对react动画实现的库😀
+
+      > Exposes simple components useful for defining entering and exiting transitions. React Transition Group is not an animation library like [React-Motion](https://github.com/chenglou/react-motion), it does not animate styles by itself. Instead it exposes transition stages, manages classes and group elements and manipulates the DOM in useful ways, making the implementation of actual visual transitions much easier.
+      >
+      > 公开用于定义进入和退出转换的简单组件。React Transition Group 不是像[React-Motion](https://github.com/chenglou/react-motion)那样的动画库，它**本身不会动画样式**。相反，它公开转换阶段，管理类和组元素并以有用的方式操作 DOM，使实际视觉转换的实现更加容易。
+
+    - 之前我也有用过 ——[ 详细笔记](https://www.yuque.com/qzhou/learning/szwcrw)
 
 ## 测试
 
@@ -258,6 +271,7 @@ yarn add @fortawesome/react-fontawesome
 
 - React.children.map
 - React.cloneElement()
+- React中原生CSS比较难实现的过渡动画
 
 ### git commit规范
 
