@@ -44,14 +44,12 @@ $theme-colors: (
   'dark': $dark,
 );
 
-$font-family-sans-serif: -apple-system,
-  BlinkMacSystemFont, 'Segoe UI', Roboto,
-  'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-  'Apple Color Emoji', 'Segoe UI Emoji',
-  'Segoe UI Symbol', 'Noto Color Emoji' !default;
-$font-family-monospace: SFMono-Regular, Menlo,
-  Monaco, Consolas, 'Liberation Mono',
-  'Courier New', monospace !default;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+  'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+  'Noto Color Emoji' !default;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+  'Liberation Mono', 'Courier New', monospace !default;
 $font-family-base: $font-family-sans-serif !default;
 
 // 字体大小
@@ -84,10 +82,7 @@ $h6-font-size: $font-size-base !default;
 // 链接
 $link-color: $primary !default;
 $link-decoration: none !default;
-$link-hover-color: darken(
-  $link-color,
-  15%
-) !default;
+$link-hover-color: darken($link-color, 15%) !default;
 $link-hover-decoration: underline !default;
 
 // body
@@ -182,12 +177,10 @@ $border-radius-lg: 0.3rem !default;
 $border-radius-sm: 0.2rem !default;
 
 // 不同类型的 box shadow
-$box-shadow-sm: 0 0.125rem 0.25rem
-  rgba($black, 0.075) !default;
+$box-shadow-sm: 0 0.125rem 0.25rem rgba($black, 0.075) !default;
 $box-shadow: 0 0.5rem 1rem rgba($black, 0.15) !default;
 $box-shadow-lg: 0 1rem 3rem rgba($black, 0.175) !default;
-$box-shadow-inset: inset 0 1px 2px
-  rgba($black, 0.075) !default;
+$box-shadow-inset: inset 0 1px 2px rgba($black, 0.075) !default;
 
 // 按钮
 // 按钮基本属性
@@ -226,8 +219,7 @@ $btn-border-radius-lg: $border-radius-lg !default;
 $btn-border-radius-sm: $border-radius-sm !default;
 
 $btn-transition: color 0.15s ease-in-out,
-  background-color 0.15s ease-in-out,
-  border-color 0.15s ease-in-out,
+  background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
   box- shadow 0.15s ease-in-out !default;
 
 // menu
@@ -247,8 +239,7 @@ $menu-item-disabled-color: $gray-600 !default;
 
 //sub-menu
 //submenu
-$submenu-box-shadow: 0 2px 4px 0
-    rgba(0, 0, 0, 0.12),
+$submenu-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12),
   0 0 6px 0 rgba(0, 0, 0, 0.04);
 
 //input
@@ -281,16 +272,10 @@ $input-border-radius-lg: $border-radius-lg !default;
 $input-border-radius-sm: $border-radius-sm !default;
 
 $input-focus-bg: $input-bg !default;
-$input-focus-border-color: lighten(
-  $primary,
-  25%
-) !default;
+$input-focus-border-color: lighten($primary, 25%) !default;
 $input-focus-width: 0.2rem !default;
 $input-focus-color: $input-color !default;
-$input-focus-shadow-color: rgba(
-  $primary,
-  0.25
-) !default;
+$input-focus-shadow-color: rgba($primary, 0.25) !default;
 $input-focus-box-shadow: 0 0 0 $input-focus-width
   $input-focus-shadow-color !default;
 
