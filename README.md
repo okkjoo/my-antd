@@ -253,7 +253,9 @@ yarn add @fortawesome/react-fontawesome
 
 ## 查漏补缺
 
-### SCSS
+### CSS
+
+#### SCSS
 
 - each map
 
@@ -265,7 +267,9 @@ yarn add @fortawesome/react-fontawesome
   }
   ```
 
-  
+#### 动画效果
+
+别人做好的动画合集https://animate.style/
 
 ### React
 
