@@ -270,6 +270,12 @@ yarn add @fortawesome/react-fontawesome
 - 能追踪组建的行为并且具有属性调试的功能
 - 为组件自动生成文档和属性列表
 
+### story
+
+[使用指南](https://www.jianshu.com/p/9cb75ae50515)
+
+[官网](https://storybook.js.org/)
+
 ## 查漏补缺
 
 ### CSS
