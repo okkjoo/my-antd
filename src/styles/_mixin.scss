@@ -30,6 +30,8 @@
     color: $hover-color;
     background: $hover-background;
     border-color: $hover-border;
+    outline-color: $hover-color;
+    box-shadow: 2px 2px 10px rgba($hover-color, 0.15);
   }
   &:disabled,
   &.disabled {
