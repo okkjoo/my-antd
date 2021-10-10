@@ -1,41 +1,29 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import React from 'react'
+import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 
-import { Button } from './Button';
+import Button from '../components/Button/button'
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: 'Example/Button',
-  component: Button,
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
-} as ComponentMeta<typeof Button>;
+const defaultButton = () => (
+  <Button onClick={action('click')}>default button</Button>
+)
+const buttonWithSize = () => (
+  <>
+    <Button size='lg'>large button</Button>
+    <Button size='sm'>small button</Button>
+  </>
+)
+const buttonWithType = () => (
+  <>
+    <Button btnType='primary'>primary button</Button>
+    <Button btnType='danger'>danger button</Button>
+    <Button btnType='link' href=''>
+      link button
+    </Button>
+  </>
+)
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
-
-export const Primary = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {
-  primary: true,
-  label: 'Button',
-};
-
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Button',
-};
-
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Button',
-};
-
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  label: 'Button',
-};
+storiesOf('Button Component', module)
+  .add('默认 Button', defaultButton)
+  .add('不同尺寸的 Button', buttonWithSize)
+  .add('不同类型的 Button', buttonWithType)
