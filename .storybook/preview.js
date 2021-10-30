@@ -1,3 +1,5 @@
+import { addDecorator } from '@storybook/react'
+import { withInfo } from '@storybook/addon-info'
 import '../src/styles/index.scss'
 
 export const parameters = {
@@ -9,3 +11,4 @@ export const parameters = {
     },
   },
 }
+addDecorator(withInfo)

@@ -276,6 +276,29 @@ yarn add @fortawesome/react-fontawesome
 
 [官网](https://storybook.js.org/)
 
+### addons
+
+#### decorater
+
+给文档添加css样式
+
+没啥好说的，简单
+
+#### info-addon
+
+控制文档的展示信息
+
+```sh
+yanr add -D @storybook/addon-info
+yarn add  @types/storybook__addon-info  
+```
+
+### react-docgen
+
+react的文档自动生成器
+
+
+
 ## 查漏补缺
 
 ### CSS
