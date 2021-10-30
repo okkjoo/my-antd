@@ -1,4 +1,8 @@
-import React from 'react'
+import React, {
+  FC,
+  ButtonHTMLAttributes,
+  AnchorHTMLAttributes,
+} from 'react'
 import classNames from 'classnames'
 
 export type ButtonSize = 'lg' | 'sm'
@@ -15,13 +19,13 @@ interface BaseButtonProps {
 }
 
 type NativeButtonProps = BaseButtonProps &
-  React.ButtonHTMLAttributes<HTMLElement>
+  ButtonHTMLAttributes<HTMLElement>
 type AnchorButtonProps = BaseButtonProps &
-  React.AnchorHTMLAttributes<HTMLElement>
+  AnchorHTMLAttributes<HTMLElement>
 export type ButtonProps = Partial<
   NativeButtonProps & AnchorButtonProps
 >
-const Button: React.FC<ButtonProps> = (props) => {
+export const Button: FC<ButtonProps> = (props) => {
   const {
     className,
     btnType,

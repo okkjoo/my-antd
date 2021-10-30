@@ -297,7 +297,11 @@ yarn add  @types/storybook__addon-info
 
 react的文档自动生成器
 
+storybook 自带了这个，但是我们还需要让他支持 typescript
 
+`  yarn add --dev react-docgen-typescript-loader `
+
+ 
 
 ## 查漏补缺
 
