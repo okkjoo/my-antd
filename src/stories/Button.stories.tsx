@@ -32,12 +32,12 @@ const buttonWithType = () => (
 )
 
 storiesOf('Button Component', module)
-  .addDecorator(CenterDecorator)
-  .addParameters({
-    info: {
-      inline: true,
-    },
-  })
+  // .addDecorator(CenterDecorator)
+  // .addParameters({
+  //   info: {
+  //     inline: true,
+  //   },
+  // })
   .add('Button', defaultButton)
   .add('不同尺寸的 Button', buttonWithSize)
   .add('不同类型的 Button', buttonWithType)
