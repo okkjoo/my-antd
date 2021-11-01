@@ -6,7 +6,7 @@ import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
 import SubMenu from './components/Menu/subMenu'
 import Transition from './components/Transition/transition'
-
+import Input from './components/Input'
 library.add(fas)
 
 const App: React.FC = () => {
@@ -14,6 +14,7 @@ const App: React.FC = () => {
   return (
     <div className='App'>
       <header className='App-header'>
+        <Input />
         <Menu
           defaultIndex='0'
           onSelect={(index) => alert(index)}

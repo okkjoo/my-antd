@@ -175,6 +175,28 @@ yarn add @fortawesome/react-fontawesome
   - 用到SCSS的循环赋值方法——`each` 、`map` 
 - 动画效果
 
+### form 表单
+
+#### input
+
+##### 需求分析
+
+- 自动补全
+
+- 属性分析👇
+
+  ```jsx
+  <Input 
+      disabled
+      size="lg|sm"
+      icon="fontawesome 支持的图标"
+      prepand="input 前缀,string | ReactElement"
+      append="input 后缀, string | ReactElement"
+      {...restProps} 支持其他所有的 HTMLInput 属性    />
+  ```
+
+  
+
 ### Transition
 
 通过二次封装 fontAwesomeIcon 制作一个自己组件库的动画效果。
@@ -330,6 +352,19 @@ storybook 自带了这个，但是我们还需要让他支持 typescript
 #### 动画效果
 
 别人做好的动画合集https://animate.style/
+
+### typescript
+
+- Omit : 忽略接口中的某个值
+
+  ```jsx
+  export interface InputProps
+    extends Omit<InputHTMLAttributes<HTMLElement>, 'size'>{
+        //...
+    }
+  ```
+
+  
 
 ### React
 
