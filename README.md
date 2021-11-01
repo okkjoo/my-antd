@@ -301,7 +301,15 @@ storybook 自带了这个，但是我们还需要让他支持 typescript
 
 `  yarn add --dev react-docgen-typescript-loader `
 
- 
+ #### JSDoc
+
+一种注释格式
+
+`/**       */`
+
+支持 markdown
+
+详细点击：[JSDoc 介绍](https://www.shouce.ren/api/view/a/13232)
 
 ## 查漏补缺
 

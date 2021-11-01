@@ -35,12 +35,9 @@ storiesOf('Button Component', module)
   .addDecorator(CenterDecorator)
   .addParameters({
     info: {
-      text: `
-      this is a very nice component      
-      `,
       inline: true,
     },
   })
-  .add('默认 Button', defaultButton)
+  .add('Button', defaultButton)
   .add('不同尺寸的 Button', buttonWithSize)
   .add('不同类型的 Button', buttonWithType)
