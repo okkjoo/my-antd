@@ -265,6 +265,8 @@ yarn add @fortawesome/react-fontawesome
 - mock 模拟用户动作
   - jest.fn()
   - fireEvent
+    - click
+    - change
   - toHaveBeenCalled()
 - beforeEach()钩子
 -  
