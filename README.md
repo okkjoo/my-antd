@@ -1,4 +1,5 @@
-> - 入门之后做什么好？
+入门之后做什么好？
+
 > - 怎样的代码算是高质量？
 > - 项目经验？
 
@@ -175,27 +176,7 @@ yarn add @fortawesome/react-fontawesome
   - 用到SCSS的循环赋值方法——`each` 、`map` 
 - 动画效果
 
-### form 表单
-
-#### input
-
-##### 需求分析
-
-- 自动补全
-
-- 属性分析👇
-
-  ```jsx
-  <Input 
-      disabled
-      size="lg|sm"
-      icon="fontawesome 支持的图标"
-      prepand="input 前缀,string | ReactElement"
-      append="input 后缀, string | ReactElement"
-      {...restProps} 支持其他所有的 HTMLInput 属性    />
-  ```
-
-  
+- 
 
 ### Transition
 
@@ -219,6 +200,60 @@ yarn add @fortawesome/react-fontawesome
   - 之前我也有用过 ——[ 详细笔记](https://www.yuque.com/qzhou/learning/szwcrw)
 
   - 容器选项 —— 为了有时需要覆盖原先的元素的动画效果，在该元素外层包裹一个容器，将需要设置的动画放在容器上即可。
+
+### input
+
+#### 需求分析
+
+- 自动补全
+
+- 属性分析👇
+
+  ```jsx
+  <Input 
+      disabled
+      size="lg|sm"
+      icon="fontawesome 支持的图标"
+      prepand="input 前缀,string | ReactElement"
+      append="input 后缀, string | ReactElement"
+      {...restProps} 支持其他所有的 HTMLInput 属性  
+  />
+  ```
+
+
+### autoComplete
+
+#### 需求分析
+
+```tsx
+//字符串数据提供，数据选择放在组件外部，因为可能直接异步获取，并不使用到传入的数据
+const dataStr = ['1','2','abc','']
+
+interface AutoCompleteProps {
+    fetchSuggestions : (keyword: string) => string[] || Promise<string[]>, //过滤值
+    onSelect: (item: string) => void,//用户选了哪个
+}
+    
+ //in component
+const handleChange = (keyword: string) =>{
+    return dataStr.filter(item => item.includes(keyword))//1. 同步
+    return fetch(`url?keyword=${keyword}`)//2. 异步
+}
+
+const handleSelect = (item: string) =>{
+    console.log(item)
+}
+//组件的使用
+<AutoComplete
+    fetchSuggestions = {handleChange}
+    onSelect = {handleSelect}
+/>
+```
+
+- 用户选项                        custon option
+- 键盘移动事件                 keyborad support
+- 函数防抖                         debounce
+- 下拉菜单的展开与收起 click outside
 
 ## 测试
 
