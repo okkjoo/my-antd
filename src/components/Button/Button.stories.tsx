@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 // import { withInfo } from '@storybook/addon-info'
 
-import Button from '../components/Button/button'
+import Button from './button'
 
 const styles: React.CSSProperties = {
   textAlign: 'center',
