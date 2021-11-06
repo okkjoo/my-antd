@@ -176,7 +176,17 @@ yarn add @fortawesome/react-fontawesome
   - 用到SCSS的循环赋值方法——`each` 、`map` 
 - 动画效果
 
-- 
+注意要引入全部图标才能方便显示
+
+```tsx
+//可以在要使用的地方或者直接在 icon.tsx 中引入，这里我为了方便直接在icon.tsx中引入了
+
+import { library } from '@fortawesome/fontawesome-svg-core' // 导入图标仓库
+import { fas } from '@fortawesome/free-solid-svg-icons' // 全部图标
+library.add(fas) // 把图标添加进仓库
+```
+
+
 
 ### Transition
 
@@ -399,6 +409,16 @@ storybook 自带了这个，但是我们还需要让他支持 typescript
     extends Omit<InputHTMLAttributes<HTMLElement>, 'size'>{
         //...
     }
+  ```
+
+- 处理复杂数据结构 —— `autoComplete`组件中传入的数据来源
+
+  ```tsx
+  
+  interface DataSourceObject {
+    value: string
+  }
+  export type DataSourceType<T = {}> = T & DataSourceObject
   ```
 
   
