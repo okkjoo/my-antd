@@ -35,6 +35,9 @@ const SimpleComplete = () => {
   const handleFetch = (query: string) => {
     return fetch(`https://api.github.com/search/users?q=${query}`)
       .then((res) => res.json())
+      .catch(() => {
+        return []
+      })
       .then(({ items }) => {
         console.log(items)
         return items

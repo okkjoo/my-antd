@@ -265,6 +265,45 @@ const handleSelect = (item: string) =>{
 - 函数防抖                         debounce
 - 下拉菜单的展开与收起 click outside
 
+##### 异步请求中的防抖
+
+目前：每输入一个字符，都会发送一次异步请求，这会导致多余的请求甚至不能保证最后返回的结果是最后发送的请求所需的。
+
+需要改进为：每输入一个字符后过一小段时间后确保用户不再输入字符后再发送请求。
+
+**函数防抖的原理：**
+
+通过一个闭包保存一个标记，保存`定时器`的返回，每当用户触发就清空之前的定时器并重新开始计时。
+
+现成的： lodash 中的 `_.debounce(func, [wait = 0], [options={}])`
+
+我选择的是：自定义Hook
+
+##### 自定义Hook
+
+```tsx
+//src/hook/useDebounce.tsx
+import { useEffect, useState } from 'react'
+
+function useDebounce(value: any, delay = 300) {
+  const [debouncedValue, setDebouncedValue] = useState(value)
+  useEffect(() => {
+    const handler = window.setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [value, delay])
+  return debouncedValue
+}
+
+export default useDebounce
+
+```
+
+
+
 ## 测试
 
 ### 重要性
@@ -433,7 +472,7 @@ storybook 自带了这个，但是我们还需要让他支持 typescript
 
 #### type
 
-指明 git commit 的类别，应该使用以下类型:
+指明 git  commit 的类别，应该使用以下类型:
 
 - 『feat』: 新增功能
 - 『fix』: 修复 bug
