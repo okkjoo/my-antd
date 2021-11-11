@@ -5,11 +5,13 @@ import React, {
   ReactElement,
   KeyboardEvent,
   useEffect,
+  useRef,
 } from 'react'
 import classNames from 'classnames'
 import Input, { InputProps } from '../Input/input'
 import Icon from '../Icon/icon'
 import useDebounce from '../../hooks/useDebounce'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 
 interface DataSourceObject {
   value: string
@@ -39,11 +41,12 @@ export const AutoComplete: FC<AutocompleteProps> = (props) => {
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [highlightIndex, setHighlightIndex] = useState<number>(-1)
+  const triggerSearch = useRef(false)
 
   const debouncedValue = useDebounce(inputValue, 500)
 
   useEffect(() => {
-    if (debouncedValue) {
+    if (debouncedValue && triggerSearch.current) {
       const results = fetchSuggestions(debouncedValue)
       if (results instanceof Promise) {
         // console.log('triggered')
@@ -90,6 +93,7 @@ export const AutoComplete: FC<AutocompleteProps> = (props) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim()
     setInputValue(value)
+    triggerSearch.current = true
   }
 
   const handleSelect = (item: DataSourceType) => {
@@ -98,6 +102,7 @@ export const AutoComplete: FC<AutocompleteProps> = (props) => {
     if (onSelect) {
       onSelect(item)
     }
+    triggerSearch.current = false
   }
 
   const renderTemplate = (item: DataSourceType) => {

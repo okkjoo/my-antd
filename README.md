@@ -309,6 +309,14 @@ export default useDebounce
 - esc： 关闭菜单
 - 再次更新 input 内内容时，`highlightIndex`要重置
 
+##### 遇到的 bug
+
+每次 激活 onSelect 后，想要的效果是：item.value 填充 input ，菜单消失;
+
+但是因为每次 value 改变，又会调用一次 useEffect ，导致再次 fecth 一次数据——需要一个 flag 让其知道什么时候更新数据、什么时候不更新。
+
+并且这个flag 不需要引起组件的重新渲染，只需要保持一个不同的状态即可。—— 使用 useRef
+
 ## 测试
 
 ### 重要性
