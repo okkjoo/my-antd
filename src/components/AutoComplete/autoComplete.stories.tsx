@@ -32,14 +32,14 @@ const SimpleComplete = () => {
   // const handleFetch = (query: string) => {
   //   return lakersWithNumber.filter(player => player.value.includes(query))
   // }
-  const handleFetch = (query: string) => {
+  const handleFetch = (query: string): Promise<DataSourceType> => {
     return fetch(`https://api.github.com/search/users?q=${query}`)
       .then((res) => res.json())
       .catch(() => {
         return []
       })
       .then(({ items }) => {
-        console.log(items)
+        // console.log(items)
         return items
           .slice(0, 10)
           .map((item: any) => ({ value: item.login, ...item }))
@@ -59,7 +59,7 @@ const SimpleComplete = () => {
     <AutoComplete
       fetchSuggestions={handleFetch}
       onSelect={action('selected')}
-      renderOption={renderOption}
+      // renderOption={renderOption}
     />
   )
 }

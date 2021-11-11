@@ -279,7 +279,7 @@ const handleSelect = (item: string) =>{
 
 我选择的是：自定义Hook
 
-##### 自定义Hook
+###### 自定义Hook
 
 ```tsx
 //src/hook/useDebounce.tsx
@@ -302,7 +302,12 @@ export default useDebounce
 
 ```
 
+##### 键盘事件
 
+- 上下：拟选择某一项，并且高亮
+- enter： 选择该项填充 input 并关闭菜单
+- esc： 关闭菜单
+- 再次更新 input 内内容时，`highlightIndex`要重置
 
 ## 测试
 
