@@ -492,8 +492,45 @@ storybook 自带了这个，但是我们还需要让他支持 typescript
 ### React
 
 - React.children.map
+
 - React.cloneElement()
+
+  ```tsx
+  React.cloneElement(
+    element,//必须是一个存在的React组件或者原生DOM
+    [props],//配置当前element的props
+    [...children]//配置当前element的children，较少使用
+  )
+  
+  //常与 React.Children.map 和 this.props.children搭配使用
+  React.Children.map(this.props.children,child=>{
+      React.cloneElement(child,{...props},children)
+  })
+  ```
+
+  
+
 - React中原生CSS比较难实现的过渡动画
+
+- displayName
+
+- createContext：  通过Context提供一个全局态的store, 结合 useContext 使用
+
+  ```tsx
+  //Menu.tsx
+  interface IMenuContext {
+    index: string
+    onSelect?: SelectCallback
+    mode?: MenuMode
+    defaultOpenSubMenus?: string[]
+  }
+  export const MenuContext = createContext<IMenuContext>({ index: '0' })
+  //item.tsx
+  const context = useContext(MenuContext)
+  
+  ```
+
+  
 
 ### git commit规范
 
