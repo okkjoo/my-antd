@@ -279,7 +279,7 @@ const handleSelect = (item: string) =>{
 
 我选择的是：自定义Hook
 
-###### 自定义Hook
+###### 自定义Hook : useDebounce
 
 ```tsx
 //src/hook/useDebounce.tsx
@@ -313,11 +313,15 @@ export default useDebounce
 
 1. 要辨认点击的位置
 2. 辨认界面上的所有click事件
-3. 绑定一个够大的点击事件
+3. 绑定一个够大的点击事件——`componentRef`
 4. 给 document 绑定一个点击事件
 5. 判断点击的是什么元素
 6. 根据`e.target`来拿到当前点击了到底什么元素
 7. 判断整个 DOM 中是否包含这个节点
+
+###### 自定义Hook: useClickOutside
+
+ 
 
 ##### 遇到的 bug
 
