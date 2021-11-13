@@ -309,6 +309,16 @@ export default useDebounce
 - esc： 关闭菜单
 - 再次更新 input 内内容时，`highlightIndex`要重置
 
+##### 点击菜单外部收起菜单
+
+1. 要辨认点击的位置
+2. 辨认界面上的所有click事件
+3. 绑定一个够大的点击事件
+4. 给 document 绑定一个点击事件
+5. 判断点击的是什么元素
+6. 根据`e.target`来拿到当前点击了到底什么元素
+7. 判断整个 DOM 中是否包含这个节点
+
 ##### 遇到的 bug
 
 每次 激活 onSelect 后，想要的效果是：item.value 填充 input ，菜单消失;
