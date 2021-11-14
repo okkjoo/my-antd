@@ -12,6 +12,7 @@ import Input, { InputProps } from '../Input/input'
 import Icon from '../Icon/icon'
 import useDebounce from '../../hooks/useDebounce'
 import useClickOutside from '../../hooks/useClickOutside'
+import Transition from '../Transition/transition'
 
 interface DataSourceObject {
   value: string
@@ -41,6 +42,7 @@ export const AutoComplete: FC<AutocompleteProps> = (props) => {
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [highlightIndex, setHighlightIndex] = useState<number>(-1)
+  const [showDropdown, setShowDropdown] = useState(false)
   const triggerSearch = useRef(false)
   const componentRef = useRef<HTMLDivElement>(null)
 
@@ -115,22 +117,37 @@ export const AutoComplete: FC<AutocompleteProps> = (props) => {
   }
   const generateDropdown = () => {
     return (
-      <ul>
-        {suggestions.map((item, idx) => {
-          const cnames = classNames('suggestion-item', {
-            'item-highlighted': idx === highlightIndex,
-          })
-          return (
-            <li
-              key={idx}
-              className={cnames}
-              onClick={() => handleSelect(item)}
-            >
-              {renderTemplate(item)}
-            </li>
-          )
-        })}
-      </ul>
+      <Transition
+        in={showDropdown || loading}
+        animation='zoom-in-top'
+        timeout={300}
+        onExited={() => {
+          setSuggestions([])
+        }}
+      >
+        <ul className='zhou-suggestion-list'>
+          {loading && (
+            <div className='suggestion-loading-icon'>
+              loading
+              <Icon icon='spinner' spin />
+            </div>
+          )}
+          {suggestions.map((item, idx) => {
+            const cnames = classNames('suggestion-item', {
+              'item-highlighted': idx === highlightIndex,
+            })
+            return (
+              <li
+                key={idx}
+                className={cnames}
+                onClick={() => handleSelect(item)}
+              >
+                {renderTemplate(item)}
+              </li>
+            )
+          })}
+        </ul>
+      </Transition>
     )
   }
   return (
@@ -142,14 +159,7 @@ export const AutoComplete: FC<AutocompleteProps> = (props) => {
         {...restProps}
       />
 
-      {loading && (
-        <ul>
-          loading
-          <Icon icon='spinner' spin />
-        </ul>
-      )}
-
-      {suggestions.length > 0 && generateDropdown()}
+      {generateDropdown()}
     </div>
   )
 }
