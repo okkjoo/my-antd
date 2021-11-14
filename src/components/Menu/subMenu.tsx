@@ -19,8 +19,8 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
   const { index, title, className, children } = props
 
   const context = useContext(MenuContext)
-  const openedSubMenus = context.defaultOpenSubMenus as Array<string>
-  const isOpened =
+  const openedSubMenus: string[] = context.defaultOpenSubMenus as Array<string>
+  const isOpened: boolean =
     index && context.mode === 'vertical'
       ? openedSubMenus.includes(index)
       : false
