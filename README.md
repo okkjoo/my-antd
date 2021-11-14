@@ -210,6 +210,19 @@ library.add(fas) // 把图标添加进仓库
   - 之前我也有用过 ——[ 详细笔记](https://www.yuque.com/qzhou/learning/szwcrw)
 
   - 容器选项 —— 为了有时需要覆盖原先的元素的动画效果，在该元素外层包裹一个容器，将需要设置的动画放在容器上即可。
+  
+  - 新知识：
+  
+    `config.disabled`设置为`true`即可直接将全局动画改为同步，对于组件本身就会感受不到这些动画变化。——方便测试
+
+```tsx
+
+import { config } from 'react-transition-group'
+
+config.disabled = true
+```
+
+
 
 ### input
 
@@ -362,6 +375,8 @@ export default useDebounce
 
  `yarn run test`即可运行所有 `.test.tsx`结尾的文件
 
+也可单独运行某个测试`yarn test -- -t "auto"` 不用完全输入整个文件的名字，它会自动查找
+
 ##### jest-dom
 
 在原来的断言库中新增了许多方法——针对DOM，也是内置好的，见上图。
@@ -375,20 +390,32 @@ export default useDebounce
 - case分类
 - mock 模拟用户动作
   - jest.fn()
-  - fireEvent
-    - click
-    - change
+  - fireEvent ：各种事件
+    - click：点击
+    - change：修改值（input
   - toHaveBeenCalled()
-- beforeEach()钩子
--  
+- beforeEach()钩子：在所有测试样例之前执行一些操作
+
+```tsx
+beforeEach(() => {
+    wrapper = render(<AutoComplete {...testProps} />)
+    inputNode = wrapper.getByPlaceholderText(
+      'auto-complete',
+    ) as HTMLInputElement
+  })
+```
+
+- 
   - data-testid
   - getByTestId()
+
 - cleanup 
 - toBeVisible
 - 异步
   - async
   - await
-    - wait
+    - waitFor
+- wrapper.container : 获得DOM节点
 
 
 

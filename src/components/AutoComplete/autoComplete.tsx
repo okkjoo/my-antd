@@ -27,7 +27,15 @@ export interface AutoCompleteProps
   onSelect?: (item: DataSourceType) => void
   renderOption?: (item: DataSourceType) => ReactElement
 }
-
+/**
+ * autoComplete 自动补全组件
+ *
+ * *此处数据来自 GitHub 用户API*
+ * ~~~js
+ * //这样引用
+ * import {AutoComplete} from 'zhou-cl'
+ * ~~~
+ */
 export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const {
     fetchSuggestions,
