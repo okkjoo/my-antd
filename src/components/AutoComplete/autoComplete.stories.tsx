@@ -32,7 +32,7 @@ const SimpleComplete = () => {
   // const handleFetch = (query: string) => {
   //   return lakersWithNumber.filter(player => player.value.includes(query))
   // }
-  const handleFetch = (query: string): Promise<DataSourceType> => {
+  const handleFetch = (query: string) => {
     return fetch(`https://api.github.com/search/users?q=${query}`)
       .then((res) => res.json())
       .catch(() => {
