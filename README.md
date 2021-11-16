@@ -344,6 +344,36 @@ export default useDebounce
 
 并且这个flag 不需要引起组件的重新渲染，只需要保持一个不同的状态即可。—— 使用 useRef
 
+### UpLoad 组件 ⭐
+
+#### 需求分析
+
+- 借助 AJAX 在页面不跳转的情况下，完成文件上传
+- 上传的可视化效果
+  - 上传时
+  - 上传成功
+  - 上传失败
+  - 取消文件
+- 拖动、点击、预览
+
+ <img src="https://gitee.com/okkjoo/image-bed/raw/master/imgs/image-20211115165224259.png" alt="image-20211115165224259" style="zoom:80%;" />
+
+```tsx
+<Upload
+    action='https://...' //后端接口
+    beforeUpload={()=>{}}
+    onProgress={()=>{}}
+    onChange={()=>{}}
+    OnSuccesss={()=>{}}
+    OnError={()=>{}}
+    OnRemoved={()=>{}}
+>
+ 	<Button>click to upload</Button>  //可以自定义
+</Upload>
+```
+
+
+
 ## 测试
 
 ### 重要性
@@ -492,6 +522,49 @@ storybook 自带了这个，但是我们还需要让他支持 typescript
 #### 动画效果
 
 别人做好的动画合集https://animate.style/
+
+### JavaScript
+
+#### 异步发送请求
+
+##### Axios
+
+`yarn add axios --save`
+
+fetch 没有办法原生检测请求进度——Upload 组件非常看重这点。
+
+###### config
+
+- get请求第二个参数就是config
+- post 请求第三个参数就是config，第二个参数是 postData
+
+常用的 config
+
+```tsx
+axios
+      .get('http://jsonplaceholder.typicode.com/posts/1', {
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        responseType: 'json',
+      })
+      .then((resp) => {
+        setTitle(resp.data.title)
+      })
+```
+
+
+
+
+
+##### 在线请求测试服务
+
+- [JSONPlaceholder](http://jsonplaceholder.typicode.com/)
+- [Mocky](https://designer.mocky.io/)
+
+我选用的是前者
+
+
 
 ### typescript
 
