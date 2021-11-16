@@ -5,13 +5,22 @@ import Button from '../Button/button'
 
 export interface UploadProps {
   action: string
+  beforeUpload?: (file: File) => boolean | Promise<File>
   onProgress?: (percent: number, file: File) => void
   onSuccess?: (data: any, file: File) => void
   onError?: (err: any, file: File) => void
+  onChange?: (file: File) => void
 }
 
 export const Upload: FC<UploadProps> = (props) => {
-  const { action, onProgress, onSuccess, onError } = props
+  const {
+    action,
+    beforeUpload,
+    onProgress,
+    onSuccess,
+    onError,
+    onChange,
+  } = props
   const fileInput = useRef<HTMLInputElement>(null)
 
   const handleClck = () => {
@@ -33,36 +42,54 @@ export const Upload: FC<UploadProps> = (props) => {
   const uploadFiles = (files: FileList) => {
     let postFiles = [...files]
     postFiles.forEach((file) => {
-      const fD = new FormData()
-      fD.append(file.name, file)
-      axios
-        .post(action, fD, {
-          headers: {
-            'Content-Type': 'multiline/form-data',
-          },
-          onUploadProgress: (e) => {
-            let percentage =
-              Math.round((e.loaded * 100) / e.total) || 0
-            if (percentage < 100) {
-              if (onProgress) {
-                onProgress(percentage, file)
-              }
-            }
-          },
-        })
-        .then((resp) => {
-          console.log(resp)
-          if (onSuccess) {
-            onSuccess(resp.data, file)
-          }
-        })
-        .catch((err) => {
-          console.error(err)
-          if (onError) {
-            onError(err, file)
-          }
-        })
+      if (!beforeUpload) _post(file)
+      else {
+        const result = beforeUpload(file)
+        if (result && result instanceof Promise) {
+          result.then((processedFile) => {
+            _post(processedFile)
+          })
+        } else if (result !== false) {
+          _post(file)
+        }
+      }
     })
+  }
+  const _post = (file: File) => {
+    const fD = new FormData()
+    fD.append(file.name, file)
+    axios
+      .post(action, fD, {
+        headers: {
+          'Content-Type': 'multiline/form-data',
+        },
+        onUploadProgress: (e) => {
+          let percentage = Math.round((e.loaded * 100) / e.total) || 0
+          if (percentage < 100) {
+            if (onProgress) {
+              onProgress(percentage, file)
+            }
+          }
+        },
+      })
+      .then((resp) => {
+        console.log(resp)
+        if (onSuccess) {
+          onSuccess(resp.data, file)
+        }
+        if (onChange) {
+          onChange(file)
+        }
+      })
+      .catch((err) => {
+        console.error(err)
+        if (onError) {
+          onError(err, file)
+        }
+        if (onChange) {
+          onChange(file)
+        }
+      })
   }
 
   return (
