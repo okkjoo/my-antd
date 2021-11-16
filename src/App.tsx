@@ -12,22 +12,48 @@ library.add(fas)
 
 const App: React.FC = () => {
   const [show, setShow] = useState(false)
-  const [title, setTitle] = useState('initTitle')
-  const postData = {
-    title: 'Demo title',
-    body: 'hello zhou',
+  // const [title, setTitle] = useState('initTitle')
+  // const postData = {
+  //   title: 'Demo title',
+  //   body: 'hello zhou',
+  // }
+  // useEffect(() => {
+  //   axios
+  //     .post('http://jsonplaceholder.typicode.com/posts', postData)
+  //     .then((resp) => {
+  //       setTitle(resp.data.title)
+  //     })
+  // })
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const files: FileList | null = e.target.files
+    if (files) {
+      const uploadedFile = files[0]
+      const formData = new FormData()
+      formData.append(uploadedFile.name, uploadedFile)
+      axios
+        .post('http://jsonplaceholder.typicode.com/posts', formData, {
+          headers: {
+            'Content-Type': 'multiline/form-data',
+          },
+        })
+        .then((resp) => {
+          console.log(resp)
+        })
+    }
   }
-  useEffect(() => {
-    axios
-      .post('http://jsonplaceholder.typicode.com/posts', postData)
-      .then((resp) => {
-        setTitle(resp.data.title)
-      })
-  })
   return (
     <div className='App'>
       <header className='App-header'>
-        <h1 style={{ textAlign: 'center' }}>{title}</h1>
+        {/* <h1 style={{ textAlign: 'center' }}>{title}</h1> */}
+        <div style={{ marginTop: '100px', marginLeft: '100px' }}>
+          <input
+            type='file'
+            name='FILE'
+            onChange={handleFileChange}
+          />
+        </div>
         <br />
         <br />
         <br />
