@@ -592,10 +592,13 @@ storybook 自带了这个，但是我们还需要让他支持 typescript
 
 fetch 没有办法原生检测请求进度——Upload 组件非常看重这点。
 
+
+
 ###### config
 
 - get请求第二个参数就是config
 - post 请求第三个参数就是config，第二个参数是 postData
+- onUploadProgress 可获得 上传进度
 
 常用的 config
 
@@ -606,6 +609,15 @@ axios
           'X-Requested-With': 'XMLHttpRequest',
         },
         responseType: 'json',
+        onUploadProgress: (e) => {
+            let percentage =
+              Math.round((e.loaded * 100) / e.total) || 0
+            if (percentage < 100) {
+              if (onProgress) {
+                onProgress(percentage, file)
+              }
+            }
+          },
       })
       .then((resp) => {
         setTitle(resp.data.title)
