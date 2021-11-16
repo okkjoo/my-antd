@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import Button from './components/Button/button'
@@ -11,9 +12,26 @@ library.add(fas)
 
 const App: React.FC = () => {
   const [show, setShow] = useState(false)
+  const [title, setTitle] = useState('initTitle')
+  const postData = {
+    title: 'Demo title',
+    body: 'hello zhou',
+  }
+  useEffect(() => {
+    axios
+      .post('http://jsonplaceholder.typicode.com/posts', postData)
+      .then((resp) => {
+        setTitle(resp.data.title)
+      })
+  })
   return (
     <div className='App'>
       <header className='App-header'>
+        <h1 style={{ textAlign: 'center' }}>{title}</h1>
+        <br />
+        <br />
+        <br />
+        <hr />
         <Input />
         <Menu
           defaultIndex='0'
