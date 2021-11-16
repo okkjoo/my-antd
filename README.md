@@ -372,6 +372,65 @@ export default useDebounce
 </Upload>
 ```
 
+##### 上传文件功能
+
+经典：借助表单 form 功能，再设置 input type 为 file，来完成文件的选择。然后再用 form 的 submit 来提交。
+
+因为文件是二进制文件，所以要设置`encType='multiline/form-data'`
+
+```tsx
+<div style={{ marginTop: '100px', marginLeft: '100px' }}>
+          <form
+            method='post'
+            encType='multiline/form-data'
+         	 action='http://jsonplaceholder.typicode.com/posts'
+          >
+            <input type='file' name='FILE' />
+            <button type='submit'>Submit</button>
+          </form>
+        </div>
+```
+
+
+
+⭐js 异步请求：
+
+借助 FormData
+
+```tsx
+const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const files: FileList | null = e.target.files
+    if (files) {
+      const uploadedFile = files[0]
+      const formData = new FormData()
+      formData.append(uploadedFile.name, uploadedFile)
+      axios
+        .post('http://jsonplaceholder.typicode.com/posts', formData, {
+          headers: {
+            'Content-Type': 'multiline/form-data',
+          },
+        })
+        .then((resp) => {
+          console.log(resp)
+        })
+    }
+  }
+
+//app.tsx
+...
+return(
+    <div style={{ marginTop: '100px', marginLeft: '100px' }}>
+          <input
+            type='file'
+            name='FILE'
+            onChange={handleFileChange}
+          />
+        </div>
+)
+```
+
 
 
 ## 测试
@@ -555,7 +614,7 @@ axios
 
 
 
-
+**异步请求怎么上传文件：**已经在前面写了。
 
 ##### 在线请求测试服务
 
