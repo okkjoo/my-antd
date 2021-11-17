@@ -45,7 +45,8 @@ const filePromise = (file: File) => {
 const SimpleUpload = () => {
   return (
     <Upload
-      action='http://jsonplaceholder.typicode.com/posts'
+      // action='http://jsonplaceholder.typicode.com/posts'
+      action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
       onChange={action('changed')}
       defaultFileList={defaultFileList}
       // beforeUpload={filePromise}
