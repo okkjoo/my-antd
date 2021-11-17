@@ -107,7 +107,7 @@ classnames 用于方便地控制 className
 
 ## 各个组件
 
-### Button
+### Button 组件
 
 #### 需求分析
 
@@ -122,7 +122,7 @@ classnames 用于方便地控制 className
   - disabled
     - 还要设置鼠标 cursor
 
-### Menu
+### Menu 组件
 
 #### 需求分析
 
@@ -140,7 +140,7 @@ classnames 用于方便地控制 className
     - 高亮 is-active
     - disabled
 
-### Icon
+### Icon 组件
 
 #### icon发展
 
@@ -188,7 +188,7 @@ library.add(fas) // 把图标添加进仓库
 
 
 
-### Transition
+### Transition 组件
 
 通过二次封装 fontAwesomeIcon 制作一个自己组件库的动画效果。
 
@@ -224,7 +224,7 @@ config.disabled = true
 
 
 
-### input
+### Input 组件
 
 #### 需求分析
 
@@ -244,7 +244,7 @@ config.disabled = true
   ```
 
 
-### autoComplete
+### AutoComplete 组件
 
 #### 需求分析
 
@@ -431,7 +431,9 @@ return(
 )
 ```
 
-##### UI 
+##### 可视化
+
+###### 不同的状态
 
 每个上传的文件状态都可能不一样，还需要专门存储他们的状态。——用一个存储Upload File 类型的数组
 
@@ -545,7 +547,26 @@ const [fileList, setFileList] = useState<UploadFile[]>([])
       })
 ```
 
+###### loading的进度条Progress
 
+这个完全可以当作是另外一个组件——因为他实在是太多场景可以复用，所以下一个组件就是  `Progress`。
+
+### Progress 组件
+
+#### 需求分析
+
+主要两部分：
+
+- outer： total 总长度
+- inner： percentage 
+
+需要能自定义：
+
+- 颜色
+- 高度
+- 长度
+- 文字
+  - 是否显示
 
 ## 测试
 
