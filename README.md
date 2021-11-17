@@ -431,6 +431,120 @@ return(
 )
 ```
 
+##### UI 
+
+每个上传的文件状态都可能不一样，还需要专门存储他们的状态。——用一个存储Upload File 类型的数组
+
+**状态类型：**
+
+```tsx
+export type UploadFileStatus =
+  | 'ready'
+  | 'uploading'
+  | 'success'
+  | 'error'
+export interface UploadFile {
+  uid: string
+  size: number
+  name: string
+  status?: UploadFileStatus
+  percent?: number
+  raw?: File //源文件
+  response?: any
+  error?: any
+}
+
+//FC
+const [fileList, setFileList] = useState<UploadFile[]>([])
+//_post  每次post时更新
+ const _post = (file: File) => {
+    let _file: UploadFile = {
+      uid: Date.now() + 'upload-file',
+      status: 'ready',
+      name: file.name,
+      size: file.size,
+      percent: 0,
+      raw: file,
+    }
+    setFileList([_file, ...fileList])
+     //...
+ }
+
+```
+
+但是 `setFileList([_file, ...fileList])`的更新是异步的，会导致 axios config 中 onUploadProgress 中拿不到正确的数据。
+
+这就要用到 useState 中调用 set 方法的另一个传参方法——传一个函数。传入的这个函数接收的参数就是**上一次更新的值**。
+
+```tsx
+//封装一下更新FileList的方法
+  const updateFileList = (
+    updateFile: UploadFile,
+    updateObj: Partial<UploadFile>,
+  ) => {
+    setFileList((preFileList) => { // 传入函数
+      return preFileList.map((file) => {
+        if (file.uid === updateFile.uid) {
+          return {
+            ...file,
+            ...updateObj,
+          }
+        } else {
+          return file
+        }
+      })
+    })
+  }
+//onUploadProgress中
+  onUploadProgress: (e) => {
+      let percentage = Math.round((e.loaded * 100) / e.total) || 0
+      if (percentage < 100) {
+          //*
+        updateFileList(_file, {
+              percent: percentage,
+              status: 'uploading',
+            })
+        if (onProgress) {
+          onProgress(percentage, file)
+        }
+      }
+    },
+```
+
+同理在success 和 error 时也要更新
+
+```tsx
+//...
+	.then((resp) => {
+        //console.log('resp', resp)
+        //*
+        updateFileList(_file, {
+          status: 'success',
+          response: resp.data,
+        })
+        if (onSuccess) {
+          onSuccess(resp.data, file)
+        }
+        if (onChange) {
+          onChange(file)
+        }
+      })
+      .catch((err) => {
+        //console.error('error', err)
+        //*
+        updateFileList(_file, {
+          status: 'error',
+          response: err,
+        })
+        if (onError) {
+          onError(err, file)
+        }
+        if (onChange) {
+          onChange(file)
+        }
+      })
+```
+
 
 
 ## 测试
@@ -658,7 +772,18 @@ axios
   export type DataSourceType<T = {}> = T & DataSourceObject
   ```
 
+- Partial 只要是其中一部分就行，不管全不全
+
+  ```tsx
+   const updateFileList = (
+      updateFile: UploadFile,
+      updateObj: Partial<UploadFile>,
+    ) => {}
+  ```
+
   
+
+
 
 ### React
 
@@ -701,7 +826,7 @@ axios
   
   ```
 
-  
+- useState 调用 set 方法时传入函数
 
 ### git commit规范
 
