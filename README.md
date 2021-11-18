@@ -822,7 +822,7 @@ axios
 
 #### 拖拽api
 
-**`DataTransfer.files`**属性在拖动操作中表示[`文件列表`](https://developer.mozilla.org/zh-CN/docs/Web/API/FileList)
+[**`DataTransfer.files`**](https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransfer/files属性在拖动操作中表示[`文件列表`](https://developer.mozilla.org/zh-CN/docs/Web/API/FileList)
 
 ```tsx
 const handleDrop = (e: DragEvent<HTMLElement>) => {
