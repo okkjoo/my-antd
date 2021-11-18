@@ -585,16 +585,21 @@ const [fileList, setFileList] = useState<UploadFile[]>([])
 
 ###### 交互
 
-- 自定义触发元素
-
+- 自定义触发元素 children
   - button
   - ...
-
 - 拖拽上传
-
 - 文件的预处理
 
-  
+**拖拽**：
+
+- DragOver: 拖进来
+- DragLeave：拖出去
+- onDrop：拖进来后松开
+
+触发拖拽进入、离开、放入时的**状态**
+
+
 
 ### Progress 组件
 
@@ -814,6 +819,18 @@ axios
 - [Mocky](https://designer.mocky.io/)
 
 我选用的是前者
+
+#### 拖拽api
+
+**`DataTransfer.files`**属性在拖动操作中表示[`文件列表`](https://developer.mozilla.org/zh-CN/docs/Web/API/FileList)
+
+```tsx
+const handleDrop = (e: DragEvent<HTMLElement>) => {
+    e.preventDefault()
+    setDragOver(false)
+    onFile(e.dataTransfer.files)
+  }
+```
 
 
 

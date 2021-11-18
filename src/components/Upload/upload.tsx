@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FC, useRef, useState } from 'react'
 import axios from 'axios'
 
-import Button from '../Button/button'
 import { UploadtList } from './uploadList'
+import Dragger from './dragger'
 
 export type UploadFileStatus =
   | 'ready'
@@ -35,6 +35,7 @@ export interface UploadProps {
   withCredentials?: boolean
   accept?: string
   multiple?: boolean
+  drag?: boolean
 }
 
 export const Upload: FC<UploadProps> = (props) => {
@@ -53,6 +54,8 @@ export const Upload: FC<UploadProps> = (props) => {
     withCredentials,
     accept,
     multiple,
+    drag,
+    children,
   } = props
   const fileInput = useRef<HTMLInputElement>(null)
 
@@ -189,10 +192,23 @@ export const Upload: FC<UploadProps> = (props) => {
 
   console.log('fileList', fileList)
   return (
-    <div className='zhou-upload-component'>
-      <Button btnType='primary' onClick={handleClck}>
-        Upload File
-      </Button>
+    <div
+      className='zhou-upload-component'
+      style={{ display: 'inline-block' }}
+      onClick={handleClck}
+    >
+      {drag ? (
+        <Dragger
+          onFile={(files) => {
+            uploadFiles(files)
+          }}
+        >
+          {children}
+        </Dragger>
+      ) : (
+        { children }
+      )}
+
       <input
         className='zhou-file-input'
         style={{ display: 'none' }}

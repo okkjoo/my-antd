@@ -2,6 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import Upload, { UploadFile } from './upload'
+import Button from '../Button/button'
 
 const defaultFileList: UploadFile[] = [
   {
@@ -48,15 +49,18 @@ const SimpleUpload = () => {
       // action='http://jsonplaceholder.typicode.com/posts'
       action='https://run.mocky.io/v3/50ff378f-178d-45d3-95d1-739269fca9bf'
       onChange={action('changed')}
-      defaultFileList={defaultFileList}
+      // defaultFileList={defaultFileList}
       // beforeUpload={filePromise}
       onRemove={action('removed')}
       name='fileName-test'
       data={{ kkkey: 'jjjoo' }}
       headers={{ 'X-showed': 'zhou' }}
-      accept='.jpg'
-      multiple
-    />
+      // accept='.jpg'
+      // multiple
+      drag
+    >
+      {/* <Button btnType='primary'>Upload File</Button> */}
+    </Upload>
   )
 }
 
