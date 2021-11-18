@@ -431,6 +431,38 @@ return(
 )
 ```
 
+##### 更多的配置项
+
+- http post请求
+  - 自定义 Header
+  - 自定义name 属性：发到后端的文件参数名称
+  - 自定义formData 属性： 额外数据
+  - 自定义withCredentials：是否携带cookie（axios config 自带）
+- 自定义input 自带的约束属性：
+  -  [multipe](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input/file#multiple)（文件的多选）
+  - [accept](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input/file#accept)（文件类型）
+
+###### 遇到的bug
+
+多个文件上传时，只显示了最后选择的哪个。
+
+原因在 _post 方法中这行代码
+
+```tsx
+//upload.tsx _post
+setFileList([_file, ...fileList])
+```
+
+当多个 post 请求发送时，这里的 fileList 还没更新前面新增的文件，就被最后一个post覆盖掉了。所以需要改成
+
+```tsx
+setFileList((preFileList) => {
+  return [_file, ...preFileList]
+})
+```
+
+这样传入参数才能确保每次拿到的 fileList 都是最新的。
+
 ##### 可视化
 
 ###### 不同的状态
@@ -547,9 +579,22 @@ const [fileList, setFileList] = useState<UploadFile[]>([])
       })
 ```
 
-###### loading的进度条Progress
+###### loading 的进度条 Progress
 
 这个完全可以当作是另外一个组件——因为他实在是太多场景可以复用，所以下一个组件就是  `Progress`。
+
+###### 交互
+
+- 自定义触发元素
+
+  - button
+  - ...
+
+- 拖拽上传
+
+- 文件的预处理
+
+  
 
 ### Progress 组件
 

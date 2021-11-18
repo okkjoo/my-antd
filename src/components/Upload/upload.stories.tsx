@@ -7,23 +7,23 @@ const defaultFileList: UploadFile[] = [
   {
     uid: '123',
     size: 1234,
-    name: 'hello.md',
+    name: 'percent88%.md',
     status: 'uploading',
-    percent: 30,
+    percent: 88,
   },
   {
     uid: '122',
     size: 1234,
-    name: 'xyz.md',
+    name: 'successExample.jpg',
     status: 'success',
-    percent: 30,
+    percent: 100,
   },
   {
     uid: '121',
     size: 1234,
-    name: 'eyiha.md',
+    name: 'errotExample.exe',
     status: 'error',
-    percent: 30,
+    percent: 0,
   },
 ]
 
@@ -46,11 +46,16 @@ const SimpleUpload = () => {
   return (
     <Upload
       // action='http://jsonplaceholder.typicode.com/posts'
-      action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+      action='https://run.mocky.io/v3/50ff378f-178d-45d3-95d1-739269fca9bf'
       onChange={action('changed')}
       defaultFileList={defaultFileList}
       // beforeUpload={filePromise}
       onRemove={action('removed')}
+      name='fileName-test'
+      data={{ kkkey: 'jjjoo' }}
+      headers={{ 'X-showed': 'zhou' }}
+      accept='.jpg'
+      multiple
     />
   )
 }
