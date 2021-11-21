@@ -8,8 +8,9 @@ interface UploadListProps {
   onRemove: (_file: UploadFile) => void
 }
 
-export const UploadtList: FC<UploadListProps> = (props) => {
+export const UploadList: FC<UploadListProps> = (props) => {
   const { fileList, onRemove } = props
+
   return (
     <ul className='zhou-upload-list'>
       {fileList.map((item) => {
@@ -20,7 +21,6 @@ export const UploadtList: FC<UploadListProps> = (props) => {
               {item.name}
             </span>
             <span className='file-status'>
-              {/* {item.status === 'uploading' && <Icon icon='spinner'  spin/>} */}
               {(item.status === 'uploading' ||
                 item.status === 'ready') && (
                 <Icon icon='spinner' spin theme='primary' />
@@ -49,3 +49,5 @@ export const UploadtList: FC<UploadListProps> = (props) => {
     </ul>
   )
 }
+
+export default UploadList

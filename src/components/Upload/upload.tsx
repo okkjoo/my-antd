@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, useRef, useState } from 'react'
 import axios from 'axios'
 
-import { UploadtList } from './uploadList'
+import { UploadList } from './uploadList'
 import Dragger from './dragger'
 
 export type UploadFileStatus =
@@ -163,7 +163,6 @@ export const Upload: FC<UploadProps> = (props) => {
         },
       })
       .then((resp) => {
-        console.log('resp', resp)
         updateFileList(_file, {
           status: 'success',
           response: resp.data,
@@ -176,7 +175,6 @@ export const Upload: FC<UploadProps> = (props) => {
         }
       })
       .catch((err) => {
-        console.error('error', err)
         updateFileList(_file, {
           status: 'error',
           response: err,
@@ -190,7 +188,6 @@ export const Upload: FC<UploadProps> = (props) => {
       })
   }
 
-  console.log('fileList', fileList)
   return (
     <div
       className='zhou-upload-component'
@@ -218,7 +215,7 @@ export const Upload: FC<UploadProps> = (props) => {
         accept={accept}
         multiple={multiple}
       />
-      <UploadtList fileList={fileList} onRemove={handleRemove} />
+      <UploadList fileList={fileList} onRemove={handleRemove} />
     </div>
   )
 }

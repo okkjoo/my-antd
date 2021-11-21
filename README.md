@@ -663,11 +663,13 @@ const [fileList, setFileList] = useState<UploadFile[]>([])
 
 - case分类
 - mock 模拟用户动作
-  - jest.fn()
+  - jest.fn() 监控本该调用的函数是否触发
   - fireEvent ：各种事件
     - click：点击
     - change：修改值（input
   - toHaveBeenCalled()
+  - 第三方组件、自己写的组件
+  - ⭐axios
 - beforeEach()钩子：在所有测试样例之前执行一些操作
 
 ```tsx
@@ -691,7 +693,33 @@ beforeEach(() => {
     - waitFor
 - wrapper.container : 获得DOM节点
 
+#### 异步怎么测试
 
+```tsx
+import '@testing-library/jest-dom/extend-expect'
+import axios from 'axios'
+jest.mock('axios')
+const mockedAxios = axios as jest.Mocked<typeof axios>  //让断言编译器知道，这个 axios 不是真正的  axios 而是mock出来的         //...
+                                         describe('test upload component', () => {
+  beforeEach(() => {
+    //...
+  })
+  it('upload process should works fine', async () => {
+    //...
+    //第一种写法
+    // mockedAxios.post.mockImplementation(() => {
+    //   return Promise.resolve({'data': 'zzz!'})
+    // })
+    //第二种
+    mockedAxios.post.mockResolvedValue({ data: 'zzz!' })
+    //... 之后就是已经成功发送异步请求后的情况了，与其他一样 expect
+      
+  })
+})
+
+```
+
+关于 Jest 的更多，可以查看[官网文档](https://www.jestjs.cn/docs/mock-functions)
 
 ## 文档 storybook
 
