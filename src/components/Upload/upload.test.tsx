@@ -76,13 +76,6 @@ describe('test upload component', () => {
     fireEvent.dragLeave(uploadArea)
     expect(uploadArea).not.toHaveClass('is-dragover')
 
-    // const mockDropEvent = createEvent.drop(uploadArea)
-    // Object.defineProperty(mockDropEvent, 'dataTransfer', {
-    //   value: {
-    //     files: [testFile],
-    //   },
-    // })
-    // fireEvent(uploadArea, mockDropEvent)
     const mockDropEvent = createEvent.drop(uploadArea)
     Object.defineProperty(mockDropEvent, 'dataTransfer', {
       value: {
@@ -91,8 +84,9 @@ describe('test upload component', () => {
     })
     fireEvent(uploadArea, mockDropEvent)
 
-    // await waitFor(() => {
-    //   expect(wrapper.queryByText('test.png')).toBeInTheDocument()
-    // })
+    await waitFor(() => {
+      expect(wrapper.queryByText('test.png')).toBeInTheDocument()
+    })
+    expect(testProps.onSuccess).toHaveBeenCalledWith('zzz!', testFile)
   })
 })
