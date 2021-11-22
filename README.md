@@ -709,7 +709,31 @@ beforeEach(() => {
       )
   ```
 
-  
+#### 动画延迟导致的测试bug
+
+```tsx
+// ./src/Menu/subMenu.tsx
+return (
+      <Transition in={menuOpen} timeout={300} animation='zoom-in-top'>
+        <ul className={subMenuoClasses}>{childrenComponent}</ul>
+      </Transition>
+    )
+```
+
+其中展开动画有延迟，就会导致测试展开时，拿不到想要的展开元素——拿到的是null。可以通过 mock ，最后测试中调用的就不是真正的 Transition 组件，而是一个“平替”。
+
+```tsx
+// ./src/Menu/menu.test.tsx
+jest.mock('react-transition-group', () => {
+  return {
+    CSSTransition: (props: any) => {
+      return props.children
+    },
+  }
+})
+```
+
+
 
 #### 异步怎么测试
 
