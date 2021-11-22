@@ -686,12 +686,30 @@ beforeEach(() => {
   - getByTestId()
 
 - cleanup 
+
 - toBeVisible
+
 - 异步
   - async
   - await
     - waitFor
+  
 - wrapper.container : 获得DOM节点
+
+- expect.objectContaining(object) : 省略一些实在测试不了的
+
+  ```tsx
+  expect(testProps.onRemove).toHaveBeenCalledWith(
+      //本来还是 uploadFile 类型，但是其中的uid与当时时间有关，无法复制
+        expect.objectContaining({
+          raw: testFile,
+          status: 'success',
+          name: 'test.png',
+        }),
+      )
+  ```
+
+  
 
 #### 异步怎么测试
 
@@ -718,6 +736,53 @@ const mockedAxios = axios as jest.Mocked<typeof axios>  //让断言编译器知�
 })
 
 ```
+
+其实最好是将 mockedAxios 放到 beforeEach 中，毕竟后面的测试也要用到异步请求。
+
+```tsx
+beforeEach(() => {
+    //...
+    mockedAxios.post.mockResolvedValue({ data: 'zzz!' })
+  })
+```
+
+
+
+#### 拖拽、放置事件的检测
+
+```tsx
+it('drag and drop files should works fine', () => {
+	//drag 事件 ✔
+    fireEvent.dragOver(uploadArea)
+    expect(uploadArea).toHaveClass('is-dragover')
+    fireEvent.dragLeave(uploadArea)
+    expect(uploadArea).not.toHaveClass('is-dragover')
+	//drop 事件 ❌
+    fireEvent.drop(uploadArea, {
+      dataTransfer: { files: [testFile] },
+    })
+  })
+```
+
+但是 drop 事件因为 jsdom 的原因，不能直接测试——那就自己 createEvent 一个drop 事件对象。并用 defineProperty 扩展该对象，并触发自定义对象
+
+```tsx
+//drag ✔
+//...
+//drop 事件 ✔
+	const mockDropEvent = createEvent.drop(uploadArea)
+    Object.defineProperty(mockDropEvent, 'dataTransfer', {
+      value: {
+        files: [testFile],
+      },
+    })
+    fireEvent(uploadArea, mockDropEvent)
+//...
+```
+
+
+
+
 
 关于 Jest 的更多，可以查看[官网文档](https://www.jestjs.cn/docs/mock-functions)
 
@@ -848,9 +913,13 @@ axios
 
 我选用的是前者
 
-#### 拖拽api
+#### 拖拽、放置api
 
-[**`DataTransfer.files`**](https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransfer/files属性在拖动操作中表示[`文件列表`](https://developer.mozilla.org/zh-CN/docs/Web/API/FileList)
+[**`DataTransfer.files`**](https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransfer/files)属性在拖动操作中表示[`文件列表`](https://developer.mozilla.org/zh-CN/docs/Web/API/FileList)
+
+> **`DataTransfer.files`**属性在拖动操作中表示[`文件列表`](https://developer.mozilla.org/zh-CN/docs/Web/API/FileList)。如果操作不包含文件，则此列表为空。
+>
+> 此功能可用于将文件从用户桌面拖动到浏览器。 
 
 ```tsx
 const handleDrop = (e: DragEvent<HTMLElement>) => {
