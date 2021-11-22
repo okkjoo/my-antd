@@ -864,6 +864,55 @@ storybook 自带了这个，但是我们还需要让他支持 typescript
 
 详细点击：[JSDoc 介绍](https://www.shouce.ren/api/view/a/13232)
 
+
+
+## JavaScript 模块打包
+
+### 发展历程
+
+- comonjs
+- AMD
+- es6⭐
+
+#### 模块（module)的定义
+
+- 一组可重用的代码
+- 可维护性
+- 可复用性
+
+### webpack
+
+[webpack中文文档](https://www.webpackjs.com/)
+
+由于浏览器环境的特殊性，像nodejs中同步加载的方法没法在浏览器中使用。——于是便出现了一种工具（module bundler）：将浏览器不支持的模块进行编译转换合并，生成能在浏览器运行的代码。
+
+webpack就是一个bundler，其将所有资源制作为与js平等的模块，并以一致的方法将他们加载进来。对外只暴露**一个**js文件作为入口。
+
+### 其余类似的 module bundler
+
+- rollup.js
+- Parcel
+
+### 选择模块格式
+
+**UMD**: 兼容commonjs、AMD、es6，能直接在浏览器使用而不需要用户再安装 plugin。可通过 `script`和`link`标签直接引入文件。**但是，**
+
+>  强烈不推荐如此使用，因为这样无法按需加载，而且难以获得底层依赖模块的bug快速修复支持。——来自 antd 官网
+
+且体积非常大。不推荐使用。
+
+commonJS、ES 模块——最好选择ES模块
+
+> ES 模块是官方标准，也是Javascript 语言明确的发展方向，而CommonJS模块是一种特殊的传统格式，在ES模块被提出前作为暂时的解决方案。ES模块允许进行静态分析，从而实现像 tree-shaking 的优化，并提供诸如循环引用和动态绑定等高级功能。——来自Rollup.js 中文网
+
+**create-react-app 也是采用ES模块形式**
+
+---
+
+### 模块入口文件
+
+先重构一下代码使得每个组件都有一个 `index.tsx`导出所有的组件相关的东西，来简化入口文件代码。
+
 ## 查漏补缺
 
 ### CSS
