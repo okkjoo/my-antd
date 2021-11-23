@@ -951,6 +951,10 @@ commonJS、ES 模块——最好选择ES模块
     },
   ```
 
+  > 关于这个 `-p` :  根据`tsconfig.build.json` 中配置  生成相关文件。
+  >
+  > 更多模式参数：https://www.typescriptlang.org/docs/handbook/compiler-options.html
+
   但此时直接运行`build-ts`报错了。
 
   ![image-20211123101338503](https://gitee.com/okkjoo/image-bed/raw/master/imgs/image-20211123101338503.png)
@@ -1014,6 +1018,52 @@ commonJS、ES 模块——最好选择ES模块
   ---
 
   
+
+### 样式文件打包
+
+typescript 有 tsc 编译。sass 也有[`node-sass`](https://www.npmjs.com/package/node-sass)  (现在更推荐使用[ `dart-sass`](https://sass-lang.com/dart-sass),两者用法相似，具体原因看node-sass 那个网站)
+
+之前该项目就已经装过 `node-sass`所以直接用了。
+
+添加、修改一条命令
+
+```json
+"scripts": {
+    "start": "react-scripts start",
+    "build": "yarn build-ts && yarn build-css", //修改
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "build-ts": "tsc -p tsconfig.build.json",
+    "build-css": "node-sass ./src/styles/index.scss ./build/index.css",//添加
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
+```
+
+`node-sass ./src/styles/index.scss ./build/index.css`将`./src/styles/index.scss`文件编译后放到`./build/index.css`。
+
+---
+
+
+
+此时每次build之前还要手动删除原来的`build` 文件夹，但是`rm -rf`命令删除文件夹windows系统又不兼容。于是安装了一个工具[`rimraf`](https://www.npmjs.com/package/rimraf)，可以做到跨平台的删除命令操作。
+
+`yarn add rimraf --dev  `
+
+修改命令
+
+```json
+"clear": "rimraf ./build", //添加
+"build": "yarn clear && yarn build-ts && yarn build-css",//修改
+```
+
+现在`yarn build`就能搞定一切了。
+
+### 本地测试组件库
+
+包在发布之前还需要在本地测试一下，检查打包出来的东西是否好用。
+
+`yarn link`or`npm link`可以提供帮助。
 
 ## 查漏补缺
 
