@@ -57,6 +57,25 @@ const SimpleUpload = () => {
       headers={{ 'X-showed': 'zhou' }}
       // accept='.jpg'
       // multiple
+    >
+      <Button btnType='primary'>Upload File</Button>
+    </Upload>
+  )
+}
+const drageUpload = () => {
+  return (
+    <Upload
+      // action='http://jsonplaceholder.typicode.com/posts'
+      action='https://run.mocky.io/v3/50ff378f-178d-45d3-95d1-739269fca9bf'
+      onChange={action('changed')}
+      // defaultFileList={defaultFileList}
+      // beforeUpload={filePromise}
+      onRemove={action('removed')}
+      name='fileName-test'
+      data={{ kkkey: 'jjjoo' }}
+      headers={{ 'X-showed': 'zhou' }}
+      // accept='.jpg'
+      // multiple
       drag
     >
       {/* <Button btnType='primary'>Upload File</Button> */}
@@ -64,4 +83,6 @@ const SimpleUpload = () => {
   )
 }
 
-storiesOf('Upload component', module).add('Upload', SimpleUpload)
+storiesOf('Upload component', module)
+  .add('Upload', SimpleUpload)
+  .add('drageUpload', drageUpload)

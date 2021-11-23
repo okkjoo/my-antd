@@ -194,27 +194,29 @@ export const Upload: FC<UploadProps> = (props) => {
       style={{ display: 'inline-block' }}
       onClick={handleClck}
     >
-      {drag ? (
-        <Dragger
-          onFile={(files) => {
-            uploadFiles(files)
-          }}
-        >
-          {children}
-        </Dragger>
-      ) : (
-        { children }
-      )}
+      <div className='zhou-upload-input'>
+        {drag ? (
+          <Dragger
+            onFile={(files) => {
+              uploadFiles(files)
+            }}
+          >
+            {children}
+          </Dragger>
+        ) : (
+          children
+        )}
 
-      <input
-        className='zhou-file-input'
-        style={{ display: 'none' }}
-        ref={fileInput}
-        onChange={handleFileChange}
-        type='file'
-        accept={accept}
-        multiple={multiple}
-      />
+        <input
+          className='zhou-file-input'
+          style={{ display: 'none' }}
+          ref={fileInput}
+          onChange={handleFileChange}
+          type='file'
+          accept={accept}
+          multiple={multiple}
+        />
+      </div>
       <UploadList fileList={fileList} onRemove={handleRemove} />
     </div>
   )
