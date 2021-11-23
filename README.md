@@ -48,7 +48,7 @@ cl 是 component library
 
 ## 开动
 
-`npx create-react-app my-app --template typescript`
+`npx create-react-app zhou-cl --template typescript`
 
 ### 整体文件结构
 
@@ -1017,7 +1017,7 @@ commonJS、ES 模块——最好选择ES模块
 
   ---
 
-  
+  现在就可以`import { Button } from "zhou-cl";`如此调用了
 
 ### 样式文件打包
 
@@ -1042,6 +1042,8 @@ typescript 有 tsc 编译。sass 也有[`node-sass`](https://www.npmjs.com/packa
 
 `node-sass ./src/styles/index.scss ./build/index.css`将`./src/styles/index.scss`文件编译后放到`./build/index.css`。
 
+调用时就是`import "zhou-cl/build/index.css"`
+
 ---
 
 
@@ -1061,9 +1063,70 @@ typescript 有 tsc 编译。sass 也有[`node-sass`](https://www.npmjs.com/packa
 
 ### 本地测试组件库
 
-包在发布之前还需要在本地测试一下，检查打包出来的东西是否好用。
+包在发布之前还需要在**本地测试**一下，检查打包出来的东西是否好用。
 
 `yarn link`or`npm link`可以提供帮助。
+
+`npx create-react-app zhou-cl-test --template typescript`建一个`zhou-cl-test`用于本地测试。
+
+在被 link 的项目(`zhou-cl`)下`yarn link`，即可创建一个全局的 软连接 连接`node/modules`到 `zhou-cl` 。再创建一个本地的`zhou-cl-test`项目，`yarn link zhou-cl`即可间接连接二者。
+
+>  `zhou-cl-test`->`node/modules/zhou-cl`->`zhou-cl`
+
+
+
+`zhou-cl` 的`package.json`添加入口文件：
+
+```json
+"main": "build/index.js",
+"module": "build/index.js",
+"types": "build/index.d.ts",
+```
+
+`zhou-cl-test`的`package.json`的依赖项中添加
+
+```json
+"zhou-cl": "0.1.0"
+```
+
+来添加一个虚拟依赖，使其能正确弹出提示。就能在其中 `import`相关组件进行测试了。
+
+#### 本地测试遇到的问题
+
+- https://reactjs.org/warnings/invalid-hook-call-warning.html
+
+  > This problem can also come up when you use `npm link` or an equivalent. In that case, your bundler might “see” two Reacts — one in application folder and one in your library folder. Assuming `myapp` and `mylib` are sibling folders, one possible fix is to run `npm link ../myapp/node_modules/react` from `mylib`. This should make the library use the application’s React copy.
+  >
+  > > Note
+  > >
+  > > In general, React supports using multiple independent copies on one page (for example, if an app and a third-party widget both use it). It only breaks if `require('react')` resolves differently between the component and the `react-dom` copy it was rendered with.
+
+  大致就是说 可能是两个react版本不同。
+
+  在 `zhou-cl` 下`yarn link ../zhou-cl-test/node-modules/react`
+
+  但是！还是有问题：`No registered package found called `，于是我又查阅资料。
+
+  最终我又找到[这里](https://stackoverflow.com/questions/66346310/yarn-link-error-no-registered-package-found-called) 
+
+  于是：
+
+  ```po	
+  cd .\node_modules\react\
+  yarn link
+  ```
+
+  再进入 `zhou-cl-test`
+
+  ```pow	
+  yarn link react
+  ```
+
+  此时再启动，就没有问题了。
+
+  
+
+  
 
 ## 查漏补缺
 
