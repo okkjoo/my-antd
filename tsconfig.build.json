@@ -1,0 +1,20 @@
+{
+  //编译选项
+  "compilerOptions": {
+    "outDir": "build", //编译打包后的文件放 build 文件夹
+    "module": "esnext", //打包为 es模块
+    "target": "es5", //编译为es5
+    "declaration": true, //为每个ts文件生成 .d.ts 文件
+    "jsx": "react", //指定生成的JSX代码
+    "moduleResolution": "node", //设置解析模块的方式与node一样
+    "allowSyntheticDefaultImports": true
+  },
+  //关于文件的属性
+  "include": ["src"], //编译src下的文件,
+  "exclude": [
+    //不编译test和stories文件
+    "src/**/*.test.tsx", //**代表任意长度
+    "src/**/*.stories.tsx",
+    "src/stories"
+  ]
+}

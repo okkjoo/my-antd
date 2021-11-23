@@ -911,7 +911,109 @@ commonJS、ES 模块——最好选择ES模块
 
 ### 模块入口文件
 
-先重构一下代码使得每个组件都有一个 `index.tsx`导出所有的组件相关的东西，来简化入口文件代码。
+- 先重构一下代码使得每个组件都有一个 `index.tsx`导出所有的组件相关的东西，来简化入口文件代码。
+
+- tsc 编译 https://www.tslang.cn/docs/handbook/tsconfig-json.html
+
+  - cra 自带的 `tsconfig.json`与开发相关
+  - `tsconfig.build.json`与最后打包模块相关
+
+  ```json
+  //tsconfig.build.json
+  {
+    //编译选项
+    "compilerOptions": {
+      "outDir": "build", //编译打包后的文件放 build 文件夹
+      "module": "esnext", //打包为 es模块
+      "target": "es5", //编译为es5，将高版本的特性用低版本的代码实现解决浏览器兼容性问题
+      "declaration": true, //为每个ts、js文件生成 .d.ts 文件
+      "jsx": "react" //指定生成的JSX代码。
+    },
+    //关于文件的属性
+    "include": ["src"], //编译src下的文件,
+    "exclude": [
+      //不编译test和stories文件
+      "src/**/*.test.tsx", //**代表任意长度
+      "src/**/*.stories.tsx",
+      "src/stories"
+    ]
+  }
+  
+  ```
+
+   再在 `package.json`中添加一句命令
+
+  ```json
+  "scripts": {
+  	//...
+  	"build-ts": "tsc -p tsconfig.build.json",
+      //...
+    },
+  ```
+
+  但此时直接运行`build-ts`报错了。
+
+  ![image-20211123101338503](https://gitee.com/okkjoo/image-bed/raw/master/imgs/image-20211123101338503.png)
+
+  这是 因为 ts 处理模块和 nodejs 处理模块方式不一样。
+
+  模块加载有两种路径：
+
+  - 相对路径 `import XXX from './components/XXX'` 
+  - 绝对路径 `import * from 'XXX'`
+
+  相对路径还没有带来什么麻烦，但是绝对路径就有麻烦了。
+
+  - ts 从当前文件夹一级一级往上找
+  - node 则是直接从  `module`找
+
+  所以还要在 `tsconfig.build.json`添加多一个编译配置
+
+  ```json
+  "moduleResolution": "node" //设置解析模块的方式与node一样
+  ```
+
+  **但是，又有新的错误**
+
+  ![image-20211123105129512](https://gitee.com/okkjoo/image-bed/raw/master/imgs/image-20211123105129512.png)
+
+  `allowSyntheticDefaultImports`只一个配置选项，（具体信息可以查看[官方文档](https://www.tslang.cn/docs/handbook/compiler-options.html)）默认为`false`，为`false`时引入一个默认的模块需要一种麻烦一点的写法`import  * as React from 'react'`，所以我们还需要将其配置为`true`。
+
+  > | `--allowSyntheticDefaultImports` | `boolean` | `module === "system"` 或设置了 `--esModuleInterop` 且 `module` 不为 `es2015` / `esnext` | 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查。 |
+  > | -------------------------------- | --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+  > |                                  |           |                                                              |                                                              |
+
+  编译配置中再添一句`  "allowSyntheticDefaultImports": true`
+
+  又来了个错误
+
+  ![image-20211123111100965](https://gitee.com/okkjoo/image-bed/raw/master/imgs/image-20211123111100965.png)
+
+  查找发现是
+
+  > It seems [`FileList`](https://w3c.github.io/FileAPI/#dfn-filelist) does not support iterator yet, so it won't work even on ES6 mode [as of now](https://github.com/Microsoft/TypeScript/blob/4b284abd5199b22e21d4770325759235ec523447/lib/lib.es6.d.ts#L8477).
+  >
+  > - Are you targeting ES5? If so it's probably the problem described in [#4031](https://github.com/microsoft/TypeScript/issues/4031)
+  >
+  >   EDIT: Actually [#3164](https://github.com/microsoft/TypeScript/issues/3164) describes the problem, and [#4031](https://github.com/microsoft/TypeScript/issues/4031) is a response to that
+  >
+  > --from https://github.com/Microsoft/TypeScript/issues/7181
+
+  所以我把那行代码改为：
+
+  ```tsx
+  let postFiles = Array.from(files)
+  ```
+
+  这样就行了。**成功编译。**
+
+  ---
+
+  上一个问题设置`"downlevelIteration":true`应该也可行。具体看这篇[文章](https://github.com/microsoft/TypeScript/pull/12346)
+
+  ---
+
+  
 
 ## 查漏补缺
 

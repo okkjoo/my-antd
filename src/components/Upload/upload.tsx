@@ -107,7 +107,7 @@ export const Upload: FC<UploadProps> = (props) => {
   }
 
   const uploadFiles = (files: FileList) => {
-    let postFiles = [...files]
+    let postFiles = Array.from(files)
     postFiles.forEach((file) => {
       if (!beforeUpload) _post(file)
       else {
