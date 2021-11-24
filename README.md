@@ -2,7 +2,7 @@
 
 cl 是 component library
 
-**该组件库是我在学习时练习的一个小项目**
+**该组件库只是我在学习时练习的一个小项目**
 
 如果你真的想用、看看什么效果：
 
@@ -189,6 +189,8 @@ classnames 用于方便地控制 className
 - Font Icon 有些奇怪的bug——没加载好文件的情况
 
 ##### react-fontawesome
+
+https://fontawesome.com/icons?d=gallery
 
 使用第三方库、二次封装
 
@@ -1275,9 +1277,9 @@ react 版本也是一个问题，不能让使用者安装过react后再安装一
 
 这其中声明的依赖不会在`npm install`中安装，而是需要使用者**提前安装**，并且满足条件。
 
-#### publish/commit 前的自动化检查
+### publish/commit 前的自动化检查
 
-##### 代码规范检查
+#### 代码规范检查
 
 [ESLint](http://eslint.cn/)： cra 就自带了这个。
 
@@ -1291,7 +1293,7 @@ react 版本也是一个问题，不能让使用者安装过react后再安装一
 
 这里第一次运行该`lint`命令后，就会看见很多`warning`。但是如果没有限制`warning`数量的话，是不会报错的。
 
-##### 自动测试
+#### 自动测试
 
 参考文档：https://create-react-app.dev/docs/running-tests/
 
@@ -1335,7 +1337,13 @@ npx husky add .husky/pre-commit "yarn test:nowatch && yarn lint"
 git add .husky/pre-commit
 ```
 
+### 静态页面文档
 
+借助 storybook 简单完成：
+
+安装 storybook 后，就会自动添加一个命令`  "build-storybook": "build-storybook -s public",` 
+
+运行`yarn build-storybook`，之后将编译生成的`storybook-static`文件夹放到服务器上即可。[具体方法](https://www.yuque.com/qzhou/learning/lticwc) 
 
 ## 查漏补缺
 
