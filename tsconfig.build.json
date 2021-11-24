@@ -1,7 +1,7 @@
 {
   //编译选项
   "compilerOptions": {
-    "outDir": "build", //编译打包后的文件放 build 文件夹
+    "outDir": "dist", //编译打包后的文件放 dist 文件夹
     "module": "esnext", //打包为 es模块
     "target": "es5", //编译为es5
     "declaration": true, //为每个ts文件生成 .d.ts 文件

@@ -866,7 +866,7 @@ storybook 自带了这个，但是我们还需要让他支持 typescript
 
 
 
-## JavaScript 模块打包
+## JavaScript 模块打包与发布
 
 ### 发展历程
 
@@ -1126,7 +1126,97 @@ typescript 有 tsc 编译。sass 也有[`node-sass`](https://www.npmjs.com/packa
 
   
 
-  
+### 发布到npm
+
+#### 先注册一个npm账号
+
+- 可视化注册界面  https://www.npmjs.com/signup 没啥好说的
+
+- 命令行
+
+  - `npm whoami`检测是否登录
+
+  - `npm adduser`注册/登录账户
+
+    - 如果用了淘宝代理还要换回起初的源才能注册
+
+      ```pow
+      npm config set registry https://registry.npmjs.org
+      ```
+
+      切回默认源
+
+      要换回淘宝源的话
+
+      ```po
+      npm config set registry https://registry.npm.taobao.org
+      ```
+
+      
+
+#### package 信息
+
+```json
+  "description": "React components library", //描述
+  "author": "okkjoo",//作者
+  "private": false,//是否私人
+  "main": "dist/build/index.js",//定义了 npm 包的入口文件，browser 环境和 node 环境均可使用
+  "module": "dist/build/index.js",// 定义 npm 包的 ESM 规范的入口文件，browser 环境和 node 环境均可使用
+  "types": "dist/build/index.d.ts",//一个只在 TypeScript 中生效的字段，如果您的包有一个 main.js 文件，您还需要在 package.json 文件中指明主声明文件。 将 types 属性设置为指向 bundled 的声明文件
+  "license": "MIT",
+  "keywords": [//关键词
+    "Component",
+    "UI",
+    "React",
+    "okkjoo"
+  ],
+  "homepage": "https://github.com/okkjoo/zhou-cl",//主页
+  "repository": {//仓库
+    "type": "git",
+    "url": "https://github.com/okkjoo/zhou-cl"
+  },
+  "files": [//除了默认上传到npm的以外的文件夹
+    "dist"
+  ],
+```
+
+这里为了语义更为合适，之前的build文件夹更名为dist了（distribution）。
+
+所以 tsconfig.build.json 中指定的文件夹名称也要重build改为dist，以及命令中对build的操作也要改为对 dist 的操作。
+
+还添加了一个命令`  "prepare": "yarn run build"`
+
+**相关知识：版本号**
+
+>  格式:主版本号：次版本号：修订号
+>
+> 主版本号：做了不兼容的API修改
+>
+> 次版本号：向下兼容的功能性新增
+>
+> 修订号：向下兼容的问题修正
+
+##### 上传遇到了问题
+
+ `TypeError: Cannot create property '-registry-npmjs-org' on string '{"-registry-npmjs-org":""}'`
+
+在[这里](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/2340)找到了一个 issue，以及[solution](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/400)，但没完全解决问题。
+
+随后我又参考了[An unexpected error occurred: "Cannot create property.." after running yarn start #4492](https://github.com/yarnpkg/yarn/issues/4492)
+
+[Cannot create property '-registry-npmjs-org' on string '{\"-registry-npmjs-org\"](https://juejin.cn/post/6844904127151996941)
+
+![image-20211124163544763](https://gitee.com/okkjoo/image-bed/raw/master/imgs/image-20211124163544763.png)
+
+以相似的思路尝试删除了箭头的这行
+
+> `npm config edit`后进入记事本，搜索`registry`找到这句 `regiistryhttps://registry.npmjs.org=`
+
+结果就成功`publish`了。——但具体原理我还真没搞明白，只是大概知道是因为
+
+> The npmrc was not correctly configured
+
+...先不管了，程序和有人有一个能跑就行🐶。
 
 ## 查漏补缺
 
