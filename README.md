@@ -1,11 +1,43 @@
+# **zhou-cl**--使用 React + Typescript 打造自己的组件库
+
+cl 是 component library
+
+**该组件库是我在学习时练习的一个小项目**
+
+如果你真的想用、看看什么效果：
+
+## 使用
+
+### 安装
+
+`npm i zhou-cl`
+
+### 引用
+
+**组件**
+
+以Button组件为例：
+
+`import {Button} from 'zhou-cl'` 
+
+**样式**
+
+`import "zhou-cl/dist/index.css"`
+
+---
+
+以下是学习时做的笔记。
+
+---
+
+
+
 入门之后做什么好？
 
 > - 怎样的代码算是高质量？
 > - 项目经验？
 
-# 使用 React + Typescript 打造自己的组件库——zhou-cl
 
-cl 是 component library
 
 [TOC]
 
@@ -1217,6 +1249,31 @@ typescript 有 tsc 编译。sass 也有[`node-sass`](https://www.npmjs.com/packa
 > The npmrc was not correctly configured
 
 ...先不管了，程序和有人有一个能跑就行🐶。
+
+#### 精简 package.json 依赖
+
+**有些依赖仅仅是开发依赖(devDependencies)，并不需要打包到生产环境中(dependencies)。**比如说：
+
+- 单元测试 :`@test`开头的
+- ts 及其类型： `ts` `@types`开头的
+- 语法转换
+- css预处理器 `node-sass`
+- module bundler
+
+react 版本也是一个问题，不能让使用者安装过react后再安装一份，两份版本不同就可能会导致错误的发生。因为react是核心依赖库，核心必须先被安装。
+
+所以在前面的`dependencies`字段中将react和react-dom 字段移动到`devDependencies`字段中——因为开发时还是需要的。
+
+这就需要 `package.json`中另一个字段来帮助
+
+```json
+"peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+```
+
+这其中声明的依赖不会在`npm install`中安装，而是需要使用者**提前安装**，并且满足条件。
 
 ## 查漏补缺
 
