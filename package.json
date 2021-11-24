@@ -1,10 +1,27 @@
 {
   "name": "zhou-cl",
-  "version": "0.1.0",
-  "private": true,
-  "main": "build/index.js",
-  "module": "build/index.js",
-  "types": "build/index.d.ts",
+  "version": "0.1.6",
+  "description": "An React components library(Just practice for learning)",
+  "author": "okkjoo",
+  "private": false,
+  "main": "dist/build/index.js",
+  "module": "dist/build/index.js",
+  "types": "dist/build/index.d.ts",
+  "license": "MIT",
+  "keywords": [
+    "Component",
+    "UI",
+    "React",
+    "okkjoo"
+  ],
+  "homepage": "https://github.com/okkjoo/zhou-cl",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/okkjoo/zhou-cl"
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
@@ -31,14 +48,15 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "clear": "rimraf ./build",
+    "clear": "rimraf ./dist",
     "build": "yarn clear && yarn build-ts && yarn build-css",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build-ts": "tsc -p tsconfig.build.json",
-    "build-css": "node-sass ./src/styles/index.scss ./build/index.css",
+    "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "prepare": "yarn run build"
   },
   "eslintConfig": {
     "extends": [
