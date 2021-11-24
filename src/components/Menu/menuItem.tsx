@@ -2,9 +2,13 @@ import React, { useContext } from 'react'
 import classNames from 'classnames'
 import { MenuContext } from './menu'
 export interface MenuItemProps {
+  /** 默认active item的序号 */
   index?: string
+  /** 禁用 */
   disabled?: boolean
+  /** css 类选择器 */
   className?: string
+  /** 内联样式 */
   style?: React.CSSProperties
 }
 

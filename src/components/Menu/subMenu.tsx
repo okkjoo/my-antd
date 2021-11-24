@@ -10,8 +10,11 @@ import Icon from '../Icon/icon'
 import Transition from '../Transition/transition'
 
 export interface SubMenuProps {
+  /** 默认active序号 */
   index?: string
+  /** 小标题名称 */
   title: string
+  /** css 类选择器 */
   className?: string
 }
 

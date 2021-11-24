@@ -21,10 +21,13 @@ export type DataSourceType<T = {}> = T & DataSourceObject
 
 export interface AutoCompleteProps
   extends Omit<InputProps, 'onSelect'> {
+  /** 请求数据方法 */
   fetchSuggestions:
     | ((str: string) => DataSourceType[])
     | ((str: string) => Promise<DataSourceType[]>)
+  /** 选择回调函数 */
   onSelect?: (item: DataSourceType) => void
+  /** 选项渲染模板 */
   renderOption?: (item: DataSourceType) => ReactElement
 }
 /**

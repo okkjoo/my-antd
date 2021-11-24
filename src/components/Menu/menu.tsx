@@ -6,11 +6,16 @@ type MenuMode = 'horizontal' | 'vertical'
 type SelectCallback = (selectIndex: string) => void
 
 export interface MenuProps {
+  /** 传给item的默认active序号 */
   defaultIndex?: string
   className?: string
+  /** 水平|垂直状态 */
   mode?: MenuMode
+  /** 支持内联样式 */
   style?: React.CSSProperties
+  /** 选择回调 */
   onSelect?: SelectCallback
+  /** 默认展开序号 */
   defaultOpenSubMenus?: string[]
 }
 
@@ -22,7 +27,15 @@ interface IMenuContext {
 }
 export const MenuContext = createContext<IMenuContext>({ index: '0' })
 
-const Menu: React.FC<MenuProps> = (props) => {
+/**
+ * Menu 菜单组件
+ *
+ * ~~~js
+ * //这样引用
+ * import {Menu} from 'zhou-cl'
+ * ~~~
+ */
+export const Menu: React.FC<MenuProps> = (props) => {
   const {
     defaultIndex,
     className,
@@ -52,8 +65,7 @@ const Menu: React.FC<MenuProps> = (props) => {
 
   const renderChildren = () => {
     return React.Children.map(children, (child, index) => {
-      const childElement =
-        child as React.FunctionComponentElement<MenuItemProps>
+      const childElement = child as React.FunctionComponentElement<MenuItemProps>
       const { displayName } = childElement.type
       if (displayName === 'MenuItem' || 'SubMenu') {
         return React.cloneElement(childElement, {

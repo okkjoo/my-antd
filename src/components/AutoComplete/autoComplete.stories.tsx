@@ -46,6 +46,28 @@ const SimpleComplete = () => {
       })
   }
 
+  return (
+    <AutoComplete
+      fetchSuggestions={handleFetch}
+      onSelect={action('selected')}
+      // renderOption={renderOption}
+    />
+  )
+}
+const renderOptionAutoComplete = () => {
+  const handleFetch = (query: string) => {
+    return fetch(`https://api.github.com/search/users?q=${query}`)
+      .then((res) => res.json())
+      .catch(() => {
+        return []
+      })
+      .then(({ items }) => {
+        // console.log(items)
+        return items
+          .slice(0, 10)
+          .map((item: any) => ({ value: item.login, ...item }))
+      })
+  }
   const renderOption = (item: DataSourceType) => {
     const itemWithGithub = item as DataSourceType<GithubUserProps>
     return (
@@ -59,12 +81,11 @@ const SimpleComplete = () => {
     <AutoComplete
       fetchSuggestions={handleFetch}
       onSelect={action('selected')}
-      // renderOption={renderOption}
+      renderOption={renderOption}
     />
   )
 }
 
-storiesOf('AutoComplete Component', module).add(
-  'AutoComplete',
-  SimpleComplete,
-)
+storiesOf('AutoComplete Component', module)
+  .add('AutoComplete', SimpleComplete)
+  .add('renderOptionAutoComplete', renderOptionAutoComplete)
