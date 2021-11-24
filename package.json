@@ -47,7 +47,12 @@
     "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "prepare": "yarn run test:nowatch && yarn lint && yarn run build"
+    "prepare": "husky install && yarn run test:nowatch && yarn lint && yarn run build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test:nowatch && yarn lint"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -96,6 +101,7 @@
     "@types/react-transition-group": "^4.4.3",
     "@types/storybook__addon-info": "^5.2.4",
     "cross-env": "^7.0.3",
+    "husky": "^7.0.4",
     "node-sass": "4.14.1",
     "react": "^17.0.2",
     "react-docgen-typescript-loader": "^3.7.2",

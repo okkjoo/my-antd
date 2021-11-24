@@ -1275,6 +1275,68 @@ react 版本也是一个问题，不能让使用者安装过react后再安装一
 
 这其中声明的依赖不会在`npm install`中安装，而是需要使用者**提前安装**，并且满足条件。
 
+#### publish/commit 前的自动化检查
+
+##### 代码规范检查
+
+[ESLint](http://eslint.cn/)： cra 就自带了这个。
+
+关于 eslint 后面跟着的配置，可以去官网看。
+
+添加命令
+
+```json
+"lint": "eslint --ext js,ts,tsx src --max-warnings 5",
+```
+
+这里第一次运行该`lint`命令后，就会看见很多`warning`。但是如果没有限制`warning`数量的话，是不会报错的。
+
+##### 自动测试
+
+参考文档：https://create-react-app.dev/docs/running-tests/
+
+方法概述就是：设置一个环境变量`CI==true`。让所有测试跑一遍，并且返回测试结果。
+
+但是不同操作环境下设置该环境变量方法还不同，非常麻烦。就可以借助一个工具——[cross-env](https://www.npmjs.com/package/cross-env)，来实现跨平台设置环境变量。
+
+安装：`yarn add cross-env --dev`
+
+添加命令
+
+```json
+"test:nowatch": "cross-env CI=true react-scripts test",
+```
+
+修改命令
+
+```json
+"prepare": "yarn run test:no watch && yarn lint && yarn run build"
+```
+
+#### commit 前检查
+
+借助一个小工具`[Husky](https://www.npmjs.com/package/husky)`
+
+>  参考文章：https://zhuanlan.zhihu.com/p/366786798
+
+安装：`yarn add husky --dev`
+
+修改`prepate`命令：添加`husky install`。
+
+```json
+"prepare": "husky install && yarn run test:nowatch && yarn lint && yarn run build"
+```
+
+直接命令行操作
+
+```po
+yarn
+npx husky add .husky/pre-commit "yarn test:nowatch && yarn lint"
+git add .husky/pre-commit
+```
+
+
+
 ## 查漏补缺
 
 ### CSS
