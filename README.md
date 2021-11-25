@@ -1389,7 +1389,9 @@ yml配置文件
 
 还要去`GitHub setting`里搞一个 `access tokens` 放到 `Travis` 平台的环境变量`github_token`里`value`填写`GitHub 生成的token`。
 
+然后 `commit` 、`push`——又遇到了一个问题：[找到的解决方法](https://blog.esunr.xyz/2020/03/TravisCi%E4%BD%BF%E7%94%A8yarn%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%E5%8E%9F%E5%9B%A0/#2-%E5%88%86%E6%9E%90) 
 
+又遇到问题——[解决](https://github.com/SimulatedGREG/electron-vue/issues/753) 
 
 ## 查漏补缺
 
