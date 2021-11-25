@@ -7,7 +7,7 @@ cache:
 env:
   - CI=true
 install:
-  - nvm install 10
+  - nvm install 14
   - yarn
 # script:
 #   - npm run build-storybook
