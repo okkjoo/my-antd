@@ -1395,6 +1395,36 @@ yml配置文件
 
 又遇到问题——[解决](https://github.com/SimulatedGREG/electron-vue/issues/753) ，不过node要求改为14
 
+**成功！**
+
+`.travisyml`
+
+```yml
+language: node_js
+node_js:
+  - 'stable'
+cache:
+  directories:
+    - node_modules
+env:
+  - CI=true
+install:
+  - nvm install 14
+  - yarn
+script:
+  - yarn build-storybook
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $github_token
+  local_dir: storybook-static
+  on:
+    branch: master
+
+```
+
+
+
 ## 查漏补缺
 
 ### CSS
