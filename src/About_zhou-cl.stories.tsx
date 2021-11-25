@@ -30,6 +30,10 @@ storiesOf('Introduction', module).add(
             <Icon icon='github' size='1x' />
             github仓库
           </a>
+          <a href='https://www.npmjs.com/package/zhou-cl'>
+            <Icon icon='github' size='1x' />
+            npm
+          </a>
         </div>
       </>
     )
