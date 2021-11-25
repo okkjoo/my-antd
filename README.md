@@ -1218,7 +1218,7 @@ typescript 有 tsc 编译。sass 也有[`node-sass`](https://www.npmjs.com/packa
 
 所以 tsconfig.build.json 中指定的文件夹名称也要重build改为dist，以及命令中对build的操作也要改为对 dist 的操作。
 
-还添加了一个命令`  "prepare": "yarn run build"`
+还添加了一个命令`  "prepublishOnly ": "yarn run build"`
 
 **相关知识：版本号**
 
@@ -1312,7 +1312,7 @@ react 版本也是一个问题，不能让使用者安装过react后再安装一
 修改命令
 
 ```json
-"prepare": "yarn run test:no watch && yarn lint && yarn run build"
+"prepublishOnly ": "yarn run test:no watch && yarn lint && yarn run build"
 ```
 
 #### commit 前检查
@@ -1323,10 +1323,10 @@ react 版本也是一个问题，不能让使用者安装过react后再安装一
 
 安装：`yarn add husky --dev`
 
-修改`prepate`命令：添加`husky install`。
+修改`prepublishOnly`命令：添加`husky install`。
 
 ```json
-"prepare": "husky install && yarn run test:nowatch && yarn lint && yarn run build"
+"prepublishOnly ": "husky install && yarn run test:nowatch && yarn lint && yarn run build"
 ```
 
 直接命令行操作
@@ -1344,6 +1344,52 @@ git add .husky/pre-commit
 安装 storybook 后，就会自动添加一个命令`  "build-storybook": "build-storybook -s public",` 
 
 运行`yarn build-storybook`，之后将编译生成的`storybook-static`文件夹放到服务器上即可。[具体方法](https://www.yuque.com/qzhou/learning/lticwc) 
+
+`git subtree push --prefix=storybook-staticorigin gh-pages`
+
+然后去GitHub仓库里setting设置page
+
+### CICD
+
+---
+
+以上还是有很多需要手动操作的事情。
+
+- `git push`
+- `yarn publish`  测试通过后发布
+- `yarn build-storybook ` 编译静态页面
+- `git subtree push --prefix=storybook-staticorigin gh-pages` 部署到 `github page`
+
+所以需要一套自动化的工作流，在本地`git push`之后自动完成后序任务。
+
+---
+
+**CICD：**
+
+> CI(continuous integration): 持续集成
+>
+> - 频繁将代码集成到主干(master)
+>   - 快速发现错误
+>   - 防止分支大幅度偏离主干
+>
+> CD(Continuous delivery、continuous deployment): 持续交付、持续部署
+>
+> - 频繁将软件新版本交付给质量团队或用户
+> - 代码通过评审以后，自动部署到生产环境
+
+借助一个平台 [`Travis CI`](https://www.travis-ci.com/) 
+
+#### Travis CI
+
+用GitHub登录后、给权限，他便可以获取你的所有仓库。
+
+yml配置文件
+
+> 具体yml配置文档位置： https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
+
+还要去`GitHub setting`里搞一个 `access tokens` 放到 `Travis` 平台的环境变量`github_token`里`value`填写`GitHub 生成的token`。
+
+
 
 ## 查漏补缺
 
